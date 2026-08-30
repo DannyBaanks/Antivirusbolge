@@ -47,6 +47,15 @@
    chapters in `Malbolge-Translator/artifacts/quijote` are real, pre-generated
    proof of that scale.
 
+10. **bolge19 is a separate Malbolge variant, not a parity peer for classic
+    specimens.** It runs the Malbolge **Unshackled 3^19** semantics (fast20.c),
+    a different variant from classic 3^10. A classic specimen runs under it but
+    yields a different observation model (hello: 47 steps / different bytes on
+    bolge19 vs 48 / `Hello, world.` on the 3^10 backends). `crossval` groups by
+    variant and reports bolge19 in `other_variant_backends`, never folded into
+    classic parity. No 3^19 corpus image is currently present, so its use on
+    actual Unshackled specimens is not yet demonstrated.
+
 ## Claim discipline
 
 Allowed (M0+M1, demonstrated):

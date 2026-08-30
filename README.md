@@ -69,12 +69,15 @@ a `SECURITY_CLASS` (`OUTPUT_ONLY`, `PURE_VM_COMPUTE`, `INVALID_PROGRAM`,
 - **malbolge-oracle** (Python) — independent reference VM exposing final
   state a/c/d and the full 59049-cell memory.
 - **Autobolge** (Zig) — independent 3^10 VM via BOLG1->BOLG2 container.
+- **bolge19** (Zig, malbolge-lisp-forensics) — native Malbolge **Unshackled
+  3^19** VM (a different Malbolge variant). Runs `.mb`/image files.
 
 `parity` and `crossval` run the same specimen on independent backends and
-classify parity/divergence. `hello_classic.mal` demonstrates `SEMANTIC_PARITY`
-across **all four** (48 steps, `Hello, world.`). Backends may expose different
-final-state models (e.g. oracle vs autobolge registers); parity is keyed on
-output + halt, keeping state-model differences explicit.
+classify parity/divergence **within the same Malbolge variant**. `hello_classic`
+shows `SEMANTIC_PARITY` across the 4 classic 3^10 backends (48 steps, `Hello,
+world.`); bolge19 (Unshackled 3^19) runs it at 47 steps / different bytes and is
+reported separately as a distinct variant, not folded into parity. Backends may
+expose different final-state models; parity is keyed on output + halt.
 
 ## M2: workbench
 

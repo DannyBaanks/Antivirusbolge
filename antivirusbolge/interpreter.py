@@ -40,6 +40,7 @@ class BackendOutcome:
     error: Optional[str] = None
     final_state: Optional[dict] = None
     memory_snapshot: Optional[list] = None
+    variant: str = "classic_3_10"
 
 
 @dataclass
@@ -112,7 +113,73 @@ def get_backend(name: str = "walbolge"):
         return OracleBackend()
     if name == "autobolge":
         return AutobolgeBackend()
+    if name == "bolge19":
+        return Bolge19Backend()
     raise ValueError(f"Unknown backend: {name}")
+
+
+BOLGE19_EXE = os.environ.get(
+    "AVB_BOLGE19_EXE",
+    r"C:\Development\ISyCo Git\Antivirusbolge\tools\bolge19.exe")
+
+
+class Bolge19Backend:
+    """malbolge-lisp-forensics bolge19: native Zig Malbolge Unshackled 3^19 VM.
+
+    IMPORTANT: this is a DIFFERENT Malbolge variant (Unshackled, END=3^19,
+    fast20 semantics). A classic 3^10 specimen runs under it but yields a
+    different observation model (hello: 47 steps / different bytes vs 48 /
+    'Hello, world.' on 3^10 backends). It is a 5th independent backend but not a
+    parity peer for classic specimens; crossval groups by variant."""
+    name = "bolge19"
+    version = "0.1.0"
+    language = "Zig"
+    variant = "unshackled_3_19"
+    host_map = HostCapabilityMap(
+        backend="bolge19",
+        capabilities_present=["HOST_PROCESS_START"],
+        capabilities_reachable=[],
+        capabilities_exercised=[],
+        boundary_violations=0,
+        seam="antivirusbolge.interpreter.Bolge19Backend -> bolge19.exe (subprocess) -> main.zig",
+    )
+
+    def trace(self, text: str, max_steps: int, max_events: Optional[int],
+              classic: bool = False) -> BackendOutcome:
+        import re
+        import subprocess
+        import tempfile
+        try:
+            fd, path = tempfile.mkstemp(suffix=".mb")
+            with os.fdopen(fd, "w", encoding="latin-1") as f:
+                f.write(text)
+            proc = subprocess.run(
+                [BOLGE19_EXE, path, "--max-steps", str(max_steps)],
+                capture_output=True, timeout=180)
+            out = proc.stdout.decode("latin-1", "replace")
+            err = proc.stderr.decode("latin-1", "replace")
+        except Exception as exc:
+            return BackendOutcome(steps=0, halted=False,
+                                  halt_reason="interpreter_error",
+                                  output="", peak_memory=0, error=f"bolge19: {exc}",
+                                  variant=self.variant)
+        finally:
+            try:
+                os.unlink(path)
+            except OSError:
+                pass
+
+        m = re.search(r"HALT steps=(\d+) c=\S+ d=\S+ a=\S+", err)
+        if m:
+            steps = int(m.group(1))
+            return BackendOutcome(steps=steps, halted=True,
+                                  halt_reason="halt_opcode", output=out,
+                                  peak_memory=0, variant=self.variant)
+        m = re.search(r"steps=(\d+)", err)
+        steps = int(m.group(1)) if m else max_steps
+        return BackendOutcome(steps=steps, halted=False,
+                              halt_reason="max_steps", output=out,
+                              peak_memory=0, variant=self.variant)
 
 
 AUTOBOLGE_EXE = os.environ.get(
@@ -198,6 +265,7 @@ def available_backends() -> dict:
         "malbolge-engine": os.path.exists(MALBOLGE_ENGINE_EXE),
         "oracle": os.path.isdir(ORACLE_PATH),
         "autobolge": os.path.exists(AUTOBOLGE_EXE),
+        "bolge19": os.path.exists(BOLGE19_EXE),
     }
 
 

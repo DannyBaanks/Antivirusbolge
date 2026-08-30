@@ -185,6 +185,21 @@ def test_crossval_parity_includes_autobolge():
     assert r["results"]["autobolge"]["output_hash"] == r["results"]["walbolge"]["output_hash"]
 
 
+def test_bolge19_variant_isolated_not_parity_peer():
+    from antivirusbolge.interpreter import available_backends, get_backend
+    from antivirusbolge.workbench import crossval
+    if not available_backends().get("bolge19"):
+        pytest.skip("bolge19 backend not present")
+    # bolge19 is Unshackled 3^19: a separate variant. It runs, but is not a
+    # parity peer for classic 3^10 specimens, so it is reported separately.
+    assert get_backend("bolge19").variant == "unshackled_3_19"
+    r = crossval(str(HELLO), max_steps=1_000_000)
+    assert r["classification"] == "SEMANTIC_PARITY"  # classic backends still agree
+    assert r["results"]["bolge19"]["variant"] == "unshackled_3_19"
+    assert "bolge19" not in r["agreeing"]
+    assert "bolge19" in r["other_variant_backends"]
+
+
 def test_crossval_malformed_reveals_backend_divergence():
     from antivirusbolge.workbench import crossval
     # `)')*21 is not a valid Malbolge program; independent backends interpret it
