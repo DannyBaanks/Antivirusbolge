@@ -38,6 +38,8 @@ class BackendOutcome:
     executed_positions: List[int] = field(default_factory=list)
     jumps_count: int = 0
     error: Optional[str] = None
+    final_state: Optional[dict] = None
+    memory_snapshot: Optional[list] = None
 
 
 @dataclass
@@ -106,12 +108,71 @@ def get_backend(name: str = "walbolge"):
         return WalbolgeBackend()
     if name == "malbolge-engine":
         return MalbolgeEngineBackend()
+    if name == "oracle":
+        return OracleBackend()
     raise ValueError(f"Unknown backend: {name}")
+
+
+def available_backends() -> dict:
+    """Report which backends are invocable right now (presence-based)."""
+    import os
+    return {
+        "walbolge": True,
+        "malbolge-engine": os.path.exists(MALBOLGE_ENGINE_EXE),
+        "oracle": os.path.isdir(ORACLE_PATH),
+    }
 
 
 MALBOLGE_ENGINE_EXE = os.environ.get(
     "AVB_MALBOLGE_ENGINE",
     r"C:\Development\ISyCo Git\Malbolge-Engine\malbolge-ipc.exe")
+
+ORACLE_PATH = os.environ.get("AVB_ORACLE_PATH",
+                             r"C:\Development\ISyCo Git\malbolge-oracle")
+
+
+def ensure_oracle() -> None:
+    if ORACLE_PATH not in sys.path:
+        sys.path.insert(0, ORACLE_PATH)
+
+
+class OracleBackend:
+    """Reference-semantics VM (malbolge-oracle), in-process.
+
+    Exposes final state (a, c, d) and the full 59049-cell memory, which makes
+    it the deepest state-inspection backend available. Reference semantics
+    written independently from the Iizawa spec (malbolge-oracle DIVERGENCES.md)."""
+    name = "oracle"
+    version = "0.1.0"
+    language = "Python"
+    host_map = HostCapabilityMap(
+        backend="oracle",
+        capabilities_present=[],      # in-memory VM, no host primitives
+        capabilities_reachable=[],
+        capabilities_exercised=[],
+        boundary_violations=0,
+        seam="antivirusbolge.interpreter.OracleBackend -> malbolge-oracle.Oracle",
+    )
+
+    def trace(self, text: str, max_steps: int, max_events: Optional[int],
+              classic: bool = False) -> BackendOutcome:
+        ensure_oracle()
+        try:
+            from oracle import Oracle
+            o = Oracle()
+            o.load_ascii(text)
+            r = o.run(max_steps)
+        except Exception as exc:
+            return BackendOutcome(steps=0, halted=False, halt_reason="interpreter_error",
+                                  output="", peak_memory=0, error=str(exc))
+        # Oracle always uses classic semantics; map its result.
+        halt_reason = r.halt_reason if r.halted else "program_end"
+        return BackendOutcome(
+            steps=r.steps, halted=r.halted, halt_reason=halt_reason,
+            output=r.output, peak_memory=len(r.memory),
+            final_state={"a": r.a, "c": r.c, "d": r.d},
+            memory_snapshot=list(r.memory),
+        )
 
 
 class MalbolgeEngineBackend:

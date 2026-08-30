@@ -2,6 +2,10 @@
 
 Commands:
     scan   <specimen.mal>     full scan + verdict + receipt
+    run    <specimen.mal>     execute on one backend -> canonical IR
+    crossval <specimen.mal>   execute on all independent backends + compare
+    backends                  list invocable backends
+    capabilities              prior-art capability matrix summary
     trace  <specimen.mal>     trace excerpt (first N events)
     behavior <specimen.mal>   behavioral signature only
     compare <a.mal> <b.mal>   trace-level comparison ladder
@@ -67,6 +71,21 @@ def main(argv=None) -> int:
     p_rce = sub.add_parser("rce", help="Defensive interpreter-boundary analysis")
     p_rce.add_argument("backend")
     p_rce.set_defaults(handler="rce")
+
+    p_run = sub.add_parser("run", help="Execute on one backend -> canonical IR")
+    p_run.add_argument("specimen")
+    p_run.add_argument("--backend", default="walbolge")
+    p_run.set_defaults(handler="run")
+
+    p_cross = sub.add_parser("crossval", help="Cross-validate across independent backends")
+    p_cross.add_argument("specimen")
+    p_cross.set_defaults(handler="crossval")
+
+    p_back = sub.add_parser("backends", help="List invocable backends")
+    p_back.set_defaults(handler="backends")
+
+    p_caps = sub.add_parser("capabilities", help="Prior-art capability matrix summary")
+    p_caps.set_defaults(handler="capabilities")
 
     args = parser.parse_args(argv)
     common = {
@@ -147,9 +166,37 @@ def _cmd_rce(args, common) -> int:
     return 0
 
 
-def _cmd_rce(args, common) -> int:
-    from .rce import analyze_rce
-    print(json.dumps(analyze_rce(args.backend), indent=2, ensure_ascii=False))
+def _cmd_run(args, common) -> int:
+    from .workbench import run
+    r = run(args.specimen, backend_name=args.backend, max_steps=args.max_steps)
+    print(json.dumps(r.to_dict(), indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_crossval(args, common) -> int:
+    from .workbench import crossval
+    print(json.dumps(crossval(args.specimen, max_steps=args.max_steps),
+                     indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_backends(args, common) -> int:
+    from .interpreter import available_backends
+    print(json.dumps(available_backends(), indent=2))
+    return 0
+
+
+def _cmd_capabilities(args, common) -> int:
+    from pathlib import Path
+    import json as _json
+    p = Path(__file__).resolve().parent.parent / "evidence" / "PRIOR_ART_CAPABILITY_MATRIX.json"
+    m = _json.loads(p.read_text(encoding="utf-8"))
+    print(f"{len(m['rows'])} capabilities as_of {m['as_of']}")
+    by = {}
+    for r in m["rows"]:
+        s = r["status"].split(" ")[0]
+        by[s] = by.get(s, 0) + 1
+    print(_json.dumps(by, indent=2))
     return 0
 
 

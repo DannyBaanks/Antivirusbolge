@@ -148,3 +148,45 @@ def test_defensive_rce_present_not_reached_for_engine():
     assert r["classification"] == "HOST_PATH_PRESENT_NOT_REACHED"
     assert r["host_paths_to_host_primitive"] == 0
     assert r["adapter_capabilities_present"] == ["HOST_PROCESS_START"]
+
+
+# ---- M2-C: canonical IR + cross-validation ---------------------------------
+
+def test_run_canonical_ir_oracle():
+    from antivirusbolge.workbench import run
+    r = run(str(HELLO), backend_name="oracle", max_steps=1_000_000)
+    assert r.status == "OK"
+    assert r.halt_reason == "halt_opcode"
+    assert r.steps == 48
+    assert r.output == "Hello, world."
+    assert r.final_state is not None and "a" in r.final_state
+    assert isinstance(r.specimen_sha256, str) and len(r.specimen_sha256) == 64
+
+
+def test_crossval_semantic_parity_across_three_backends():
+    from antivirusbolge.workbench import crossval
+    r = crossval(str(HELLO), max_steps=1_000_000)
+    assert r["classification"] == "SEMANTIC_PARITY"
+    ok = r["agreeing"]
+    assert set(ok) >= {"walbolge", "oracle"}
+    outputs = {r["results"][b]["output_hash"] for b in ok}
+    assert len(outputs) == 1
+
+
+def test_crossval_malformed_reveals_backend_divergence():
+    from antivirusbolge.workbench import crossval
+    # `)')*21 is not a valid Malbolge program; independent backends interpret it
+    # differently (walbolge: program_end/0 steps; engine: halt/22; oracle: runs to
+    # budget). Honest cross-validation reports SEMANTIC_DIVERGENCE, not false parity.
+    r = crossval(str(INVALID), max_steps=100_000)
+    assert r["classification"] == "SEMANTIC_DIVERGENCE"
+    halts = {r["results"][b]["halt"] for b in r["agreeing"]}
+    assert len(halts) > 1
+
+
+def test_available_backends_reports_present_backends():
+    from antivirusbolge.interpreter import available_backends
+    a = available_backends()
+    assert a["walbolge"] is True
+    assert a["oracle"] is True
+    assert a["malbolge-engine"] is True
