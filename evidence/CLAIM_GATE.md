@@ -77,10 +77,14 @@ I/O reversed            representation
 
 ## Open suspect (I4 gate)
 
-**Iizawa's 2006 master's thesis** ("難解言語Malbolgeに基づくプログラム難読化に関する研究",
-CiNii `CRID 1574231874010037248`) is the last serious unchecked item. If it
-states/implies the earlier paper's I/O symbols were inverted, I4 is
-contradicted. Full text was not inspected (see IIZAWA_PRIORITY_SEARCH.md).
+**Iizawa's master's thesis (2005年度 cohort, M2005): "難解言語Malbolgeに基づく
+プログラム難読化に関する研究"** (CiNii `CRID 1574231874010037248`) is the last
+serious unchecked item. If it states/implies the earlier paper's I/O symbols
+were inverted, I4 is contradicted. **Full text was NOT obtainable in this
+search** (esolangs-linked URL and current Nagoya mirror → 404; CiNii not
+scrapeable; Nagoya repo → HTTP 406). The suspect remains OPEN (see
+IIZAWA_PRIORITY_SEARCH.md). Closing it needs the Nagoya thesis archive, an
+interlibrary loan, or the author's copy.
 
 ## HISTORICAL GENEALOGY (origin story, evidence-supported)
 

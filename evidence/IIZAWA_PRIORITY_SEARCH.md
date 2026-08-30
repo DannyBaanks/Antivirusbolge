@@ -59,21 +59,33 @@ contain our claim, but it proves people examined the same document as early as
 
 ## OPEN SUSPECT (not resolved in this search)
 
-**Iizawa's master's thesis (2006): "難解言語Malbolgeに基づくプログラム難読化に関する研究"**
-(CiNii `CRID 1574231874010037248`; an M2005 thesis PDF is linked from the
-esolangs Talk page). Chronologically:
+**Iizawa's master's thesis (2005年度 cohort; M2005): "難解言語Malbolgeに基づく
+プログラム難読化に関する研究"** (CiNii `CRID 1574231874010037248`, NII Article ID
+`20001704788`; listed on the Nagoya `m-thema.html` page under 2005年度,
+first author 飯澤 恒). Chronologically:
 
 ```
 Jun 2005   paper
    ↓
-2006        Iizawa master's thesis
+M2005        Iizawa master's thesis (defended early 2006)
 ```
 
 If the thesis states or implies the earlier paper's I/O symbols were inverted,
 I4 would be contradicted. If it uses a consistent convention without mentioning
 the earlier error, it shows later consistency but not necessarily a prior public
-report of the discrepancy. If nothing appears, the claim strengthens. Full text
-was not indexed/obtained in this search. This is the highest-value open item.
+report of the discrepancy. If nothing appears, the claim strengthens.
+
+**Full-text access attempted and FAILED in this search:**
+- esolangs-linked PDF `http://www.is.nagoya-u.ac.jp/thesis/M2005/i/M350402019e.pdf`
+  → 404 (host decommissioned).
+- Current mirror variants on `www.trs.css.i.nagoya-u.ac.jp` → 404.
+- `cir.nii.ac.jp/crid/1574231874010037248` → record not scrapeable (JS-heavy).
+- `nagoya.repo.nii.ac.jp` search → HTTP 406 (blocked).
+- No live public PDF found via DuckDuckGo.
+
+The thesis is therefore **NOT accessible in this search**; the suspect remains
+OPEN. Closing it requires the Nagoya thesis archive (access-restricted or
+offline), a library interlibrary loan, or the author's copy.
 
 ## Status
 
