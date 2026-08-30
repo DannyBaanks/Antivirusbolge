@@ -1,0 +1,1 @@
+is always followed by U and the U is always followed by one of the other vowels, A, E, I or O. As QUE or QUI occurs not infrequently in Spanish text, particularly in telegraphic correspondence, it is well worth noting that, if a Q occurs in a transposition cipher, we must connect it with U and another vowel. The

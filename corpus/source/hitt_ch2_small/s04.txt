@@ -1,0 +1,1 @@
+languages. Again there is a fixed ratio of occurrence of every letter with every other for any language and this, put in table form, constitutes a table of frequency of digraphs. In the same way a table of trigraphs, showing the ratio of occurrence of any three letters in sequence, could be prepared, but such a table would be very

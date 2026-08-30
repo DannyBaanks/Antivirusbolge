@@ -1,0 +1,1 @@
+from one to three with two as the general average. In any twenty letters we may expect to find from 6 to 9 vowels with 8 as an average. Among themselves the relative frequency of occurrence of each of the vowels, (including Y when a vowel) is as follows: A, 19.5% E, 32.0% I, 16.7% O, 20.2% U, 8.0% Y,

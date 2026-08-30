@@ -1,0 +1,15 @@
+{
+  "original": "MILITARY CIPHER",
+  "processed": "MILITARY CIPHER",
+  "words": 1,
+  "anchors": [
+    "default"
+  ],
+  "opcodes": 804,
+  "stats": {
+    "words": 1,
+    "evaluations": 39823,
+    "duration_s": 1.0497274,
+    "anchors_used": 1
+  }
+}

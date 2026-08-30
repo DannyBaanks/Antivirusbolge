@@ -1,0 +1,1 @@
+11111111 U 387 7 1111111 V 85 2 11 X 6 Y 103 2 11 Z 42 1 1 In this table the vowels AEIOU = 45.65%; consonants LNRST = 30.33%; consonants JKQXZ = 1.76%. Order of letters: E A O R S N I D L C T U M P G Y (BH) F Q V Z J

@@ -1,0 +1,15 @@
+{
+  "original": "TRANSPOSITION",
+  "processed": "TRANSPOSITION",
+  "words": 1,
+  "anchors": [
+    "default"
+  ],
+  "opcodes": 482,
+  "stats": {
+    "words": 1,
+    "evaluations": 20174,
+    "duration_s": 0.4753767,
+    "anchors_used": 1
+  }
+}

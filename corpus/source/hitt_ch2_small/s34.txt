@@ -1,0 +1,1 @@
+like NEW YORK, WILSON and WASHINGTON. The letters K and W will, however, have a negligible frequency except in short messages where words like these occur more than once. In this connection, if a cipher contains Mexican geographical names like CHIHUAHUA, MEXICO, MUZQUIZ, the letters H, X and Z will have a somewhat exaggerated frequency. In Spanish, the letter Q

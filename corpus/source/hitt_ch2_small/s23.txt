@@ -1,0 +1,1 @@
+7 Z 1 1 1 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Table IV.--Order of frequency of common pairs to be expected in a count of 2,000 letters of military or semi-military English text. (Based on a count of 20,000 letters).

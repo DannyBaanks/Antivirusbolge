@@ -1,0 +1,1 @@
+4 5 2 6 4 17 15 2 1 U V 2 2 2 2 2 2 V X X Y 5 6 2 5 2 2 Y Z 1 2 1 4 2 Z A B C D E F G H I J L M N O P Q R S T U V X Y Z Table

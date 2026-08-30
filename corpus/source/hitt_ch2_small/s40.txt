@@ -1,0 +1,1 @@
+combinations never occur but rather that they are rare. The letters in the horizontal lines at the top and bottom are the leading letters; those in the vertical columns at the sides are the following letters. Thus, in two thousand letters, we may expect to find AI twice and IA twenty-three times. A B C D E F G H

@@ -1,0 +1,1 @@
+6 111111 V 112 2 11 W 176 3 111 X 27 Y 196 4 1111 Z 17 Vowels AEIOU = 38.37%; consonants LNRST = 31.86%; consonants JKQXZ = 1.77%. The vowels may be safely taken as 40%, consonants LNRST as 30% and consonants JKQXZ as 2%. Order of letters: E T O A N I R S H D

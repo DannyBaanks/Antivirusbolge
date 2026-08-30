@@ -1,0 +1,1 @@
+in English Table I.--Normal frequency table. Frequency for ten thousand letters and for two hundred letters. This latter is put in graphic form and is necessarily an approximation. Taken from military orders and reports, English text. 10,000 Letters 200 Letters A 778 16 1111111111111111 B 141 3 111 C 296 6 111111 D 402 8 11111111 E 1277 26 11111111111111111111111111
