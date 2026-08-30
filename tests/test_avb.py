@@ -190,3 +190,37 @@ def test_available_backends_reports_present_backends():
     assert a["walbolge"] is True
     assert a["oracle"] is True
     assert a["malbolge-engine"] is True
+
+
+# ---- M2-D: debugger / RE ---------------------------------------------------
+
+def test_disassemble_decodes_each_cell():
+    from antivirusbolge.debug import disassemble
+    ins = disassemble(str(QUIJOTE))
+    assert len(ins) == 2730
+    assert ins[0]["pos"] == 0 and ins[0]["opcode"] == "i"  # bootstrap start
+    assert ins[1]["opcode"] == "o"                          # o*99 nops
+    assert all("pos" in i and "char" in i and "opcode" in i for i in ins)
+
+
+def test_debug_breakpoint_on_pc():
+    from antivirusbolge.debug import run_debug
+    r = run_debug(str(QUIJOTE), breakpoints_pc=[156], max_steps=1_000_000)
+    assert r["trigger"] is not None
+    assert r["trigger"]["kind"] == "breakpoint_pc"
+    assert r["trigger"]["c"] == 156
+
+
+def test_state_at_rewind():
+    from antivirusbolge.debug import state_at
+    from antivirusbolge.interpreter import ensure_walbolge
+    from antivirusbolge.normalizer import load_specimen
+    from walbolge.decoder import decode_program
+    from walbolge.trace import trace_program
+    _, text = load_specimen(str(QUIJOTE))
+    ensure_walbolge()
+    dec = decode_program(text)
+    tr = trace_program(dec.opcodes, max_steps=1000, classic=False)
+    ev = state_at([e.to_dict() for e in tr.events], 58)
+    assert ev is not None and ev["step"] == 58
+    assert ev["a"] == 29507  # the 'p' that produces 'C'

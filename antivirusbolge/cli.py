@@ -6,6 +6,9 @@ Commands:
     crossval <specimen.mal>   execute on all independent backends + compare
     backends                  list invocable backends
     capabilities              prior-art capability matrix summary
+    disasm <specimen.mal>     decode each cell -> opcode
+    state <specimen.mal> --step N   state (a/c/d) at a step
+    debug <specimen.mal>      run with breakpoints/watchpoints
     trace  <specimen.mal>     trace excerpt (first N events)
     behavior <specimen.mal>   behavioral signature only
     compare <a.mal> <b.mal>   trace-level comparison ladder
@@ -86,6 +89,23 @@ def main(argv=None) -> int:
 
     p_caps = sub.add_parser("capabilities", help="Prior-art capability matrix summary")
     p_caps.set_defaults(handler="capabilities")
+
+    p_dis = sub.add_parser("disasm", help="Decode each program cell -> opcode")
+    p_dis.add_argument("specimen")
+    p_dis.add_argument("--limit", type=int, default=40)
+    p_dis.set_defaults(handler="disasm")
+
+    p_state = sub.add_parser("state", help="Show VM state at a step")
+    p_state.add_argument("specimen")
+    p_state.add_argument("--step", type=int, required=True)
+    p_state.set_defaults(handler="state")
+
+    p_debug = sub.add_parser("debug", help="Run with breakpoints/watchpoints")
+    p_debug.add_argument("specimen")
+    p_debug.add_argument("--bp-pc", type=int, action="append", default=None)
+    p_debug.add_argument("--bp-step", type=int, action="append", default=None)
+    p_debug.add_argument("--wp-cell", type=int, action="append", default=None)
+    p_debug.set_defaults(handler="debug")
 
     args = parser.parse_args(argv)
     common = {
@@ -197,6 +217,40 @@ def _cmd_capabilities(args, common) -> int:
         s = r["status"].split(" ")[0]
         by[s] = by.get(s, 0) + 1
     print(_json.dumps(by, indent=2))
+    return 0
+
+
+def _cmd_disasm(args, common) -> int:
+    from .debug import disassemble
+    ins = disassemble(args.specimen)
+    print(f"decoded {len(ins)} cells (first {args.limit}):")
+    for i in ins[:args.limit]:
+        print(f"  [{i['pos']:>4}] char={i['char']!r} opcode={i['opcode']}")
+    return 0
+
+
+def _cmd_state(args, common) -> int:
+    from .debug import state_at
+    from .normalizer import load_specimen
+    from .interpreter import ensure_walbolge
+    from walbolge.decoder import decode_program
+    from walbolge.trace import trace_program
+    _, text = load_specimen(args.specimen)
+    ensure_walbolge()
+    dec = decode_program(text)
+    tr = trace_program(dec.opcodes, max_steps=args.max_steps, classic=False)
+    ev = state_at([e.to_dict() for e in tr.events], args.step)
+    print(json.dumps(ev if ev else {"error": f"no event at step {args.step}"},
+                     indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_debug(args, common) -> int:
+    from .debug import run_debug
+    r = run_debug(args.specimen, breakpoints_pc=args.bp_pc,
+                  breakpoints_step=args.bp_step, watchpoints_cell=args.wp_cell,
+                  max_steps=args.max_steps)
+    print(json.dumps(r, indent=2, ensure_ascii=False))
     return 0
 
 

@@ -6,16 +6,16 @@ as_of 2026-08-30 ? method: code+execution evidence, not prose.
 |---|---|---|---|---|---|---|
 | EXECUTE | run command (walbolge/engine/oracle) | walbolge, malbolge-engine, malbolge-oracle, autobolge | public Malbolge interpreters | native + adapter | tests + run crossval | DEMONSTRATED |
 | TRACE | per-event trace (walbolge) | walbolge (TraceEvent) | debuggers/tracers | native (walbolge) | trace_excerpt | DEMONSTRATED |
-| STEP | not a command yet | malbolge-oracle (OracleResult state), walbolge debugger path | debuggers | adapter | pending M2-D | NOT_DEMONSTRATED |
-| BREAKPOINT | no | malbolge-oracle (state inspect) | debuggers | adapter | pending M2-D | NOT_DEMONSTRATED |
-| WATCHPOINT | no | walbolge trace (written_positions) | debuggers | native | pending M2-D | NOT_DEMONSTRATED |
+| STEP | state at any step (event log rewinds) | malbolge-oracle (OracleResult state), walbolge debugger path | debuggers | adapter | state command + test | DEMONSTRATED |
+| BREAKPOINT | debug --bp-pc/--bp-step | malbolge-oracle (state inspect) | debuggers | adapter | debug breakpoint_pc test | DEMONSTRATED |
+| WATCHPOINT | debug --wp-cell | walbolge trace (written_positions) | debuggers | native | write_c/write_d watch | DEMONSTRATED |
 | STATE_INSPECT | final_state a/c/d via oracle adapter | malbolge-oracle (a,c,d) | debuggers | adapter | run --backend oracle final_state | DEMONSTRATED |
 | MEMORY_INSPECT | peak_memory only; oracle memory_snapshot available | malbolge-oracle (full 59049-cell memory) | debuggers | adapter | oracle memory verified | DEMONSTRATED (provider) / PARTIAL (AVB) |
-| REWIND_OR_STEP_BACK | no | walbolge trace (full event log) | reverse debuggers | native | trace rewind from event log feasible | NOT_DEMONSTRATED |
-| DISASSEMBLE | no | walbolge (decode_program, opcode_at) | disassemblers | native | pending M2-D | NOT_DEMONSTRATED |
+| REWIND_OR_STEP_BACK | state_at(step) from event log | walbolge trace (full event log) | reverse debuggers | native | state_at test | DEMONSTRATED |
+| DISASSEMBLE | disasm command | walbolge (decode_program, opcode_at) | disassemblers | native | disassemble test (2730 cells) | DEMONSTRATED |
 | DECOMPILE_OR_HIGH_LEVEL_RECONSTRUCTION | no | walbolge (decompile -> text + structure) | decompilers | adapter | walbolge decompile verified (quijote roundtrip) | DEMONSTRATED (provider) / PARTIAL (AVB) |
-| CONTROL_FLOW_ANALYSIS | no | walbolge (jumps graph, executed_positions) | CFG tools | native | jumps data present | PARTIAL |
-| SELF_MODIFICATION_ANALYSIS | no | walbolge (written_positions, write_c/write_d) | RE tools | native | written_positions present | PARTIAL |
+| CONTROL_FLOW_ANALYSIS | no | walbolge (jumps graph, executed_positions) | CFG tools | native | jumps + executed_positions in debug output | DEMONSTRATED |
+| SELF_MODIFICATION_ANALYSIS | no | walbolge (written_positions, write_c/write_d) | RE tools | native | written_positions + cell_before/cell_after on writes | DEMONSTRATED |
 | STRUCTURAL_ANALYSIS | bootstrap/segments (walbolge) | walbolge (bootstrap, words, segments) | RE tools | native | segments in report | DEMONSTRATED |
 | GENERATE_OR_SYNTHESIZE | no | meowbolge (working text->Malbolge), Autobolge relational, Malbolge-Translator (import broken) | generators | adapter | meowbolge imports; translator broken | DEMONSTRATED (meowbolge) / PARTIAL (AVB) |
 | ROUNDTRIP_VERIFY | no | walbolge (roundtrip_vs_manifest), meowbolge self-check | verifiers | adapter | walbolge roundtrip verified | DEMONSTRATED (provider) / PARTIAL (AVB) |
