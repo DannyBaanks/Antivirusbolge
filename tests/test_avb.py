@@ -173,6 +173,18 @@ def test_crossval_semantic_parity_across_three_backends():
     assert len(outputs) == 1
 
 
+def test_crossval_parity_includes_autobolge():
+    from antivirusbolge.interpreter import available_backends
+    from antivirusbolge.workbench import crossval
+    if not available_backends().get("autobolge"):
+        pytest.skip("autobolge backend not present")
+    r = crossval(str(HELLO), max_steps=1_000_000)
+    assert r["classification"] == "SEMANTIC_PARITY"
+    assert "autobolge" in r["agreeing"]
+    assert r["results"]["autobolge"]["steps"] == 48
+    assert r["results"]["autobolge"]["output_hash"] == r["results"]["walbolge"]["output_hash"]
+
+
 def test_crossval_malformed_reveals_backend_divergence():
     from antivirusbolge.workbench import crossval
     # `)')*21 is not a valid Malbolge program; independent backends interpret it

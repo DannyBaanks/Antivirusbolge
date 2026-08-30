@@ -4,7 +4,7 @@ as_of 2026-08-30 ? method: code+execution evidence, not prose.
 
 | capability | AVB_current | local_tool_provider | external_prior_art | implementation_mode | evidence | status |
 |---|---|---|---|---|---|---|
-| EXECUTE | run command (walbolge/engine/oracle) | walbolge, malbolge-engine, malbolge-oracle, autobolge | public Malbolge interpreters | native + adapter | tests + run crossval | DEMONSTRATED |
+| EXECUTE | run command (walbolge/engine/oracle) | walbolge, malbolge-engine, malbolge-oracle, autobolge | public Malbolge interpreters | native + adapter | run/crossval on 4 independent backends | DEMONSTRATED |
 | TRACE | per-event trace (walbolge) | walbolge (TraceEvent) | debuggers/tracers | native (walbolge) | trace_excerpt | DEMONSTRATED |
 | STEP | state at any step (event log rewinds) | malbolge-oracle (OracleResult state), walbolge debugger path | debuggers | adapter | state command + test | DEMONSTRATED |
 | BREAKPOINT | debug --bp-pc/--bp-step | malbolge-oracle (state inspect) | debuggers | adapter | debug breakpoint_pc test | DEMONSTRATED |
@@ -19,8 +19,8 @@ as_of 2026-08-30 ? method: code+execution evidence, not prose.
 | STRUCTURAL_ANALYSIS | bootstrap/segments (walbolge) | walbolge (bootstrap, words, segments) | RE tools | native | segments in report | DEMONSTRATED |
 | GENERATE_OR_SYNTHESIZE | generate_compact (Malbolge-Translator + malbolge-generator) | meowbolge (working text->Malbolge), Autobolge relational, Malbolge-Translator (import broken) | generators | adapter | 5 cybersecurity specimens generated + ROUNDTRIP_PASS on 3 backends | DEMONSTRATED |
 | ROUNDTRIP_VERIFY | roundtrip command (independent-backend verify) | walbolge (roundtrip_vs_manifest), meowbolge self-check | verifiers | adapter | ROUNDTRIP_PASS + cross_backend_parity on 3 independent backends (compact + meowbolge) | DEMONSTRATED |
-| DIFFERENTIAL_EXECUTION | crossval command (N independent backends) | malbolge-differential, opera-solver UnifiedEvaluator | differential runners | adapter | crossval hello SEMANTIC_PARITY on 3 backends; malformed -> SEMANTIC_DIVERGENCE | DEMONSTRATED |
-| CROSS_INTERPRETER_PARITY | parity + crossval (walbolge/engine/oracle) | walbolge, malbolge-engine, malbolge-oracle, autobolge | differential testing | native + adapter | hello SEMANTIC_PARITY (all 48 steps); malformed SEMANTIC_DIVERGENCE | DEMONSTRATED |
+| DIFFERENTIAL_EXECUTION | crossval command (N independent backends) | malbolge-differential, opera-solver UnifiedEvaluator | differential runners | adapter | crossval on 4 independent backends; malformed -> SEMANTIC_DIVERGENCE | DEMONSTRATED |
+| CROSS_INTERPRETER_PARITY | parity + crossval (walbolge/engine/oracle) | walbolge, malbolge-engine, malbolge-oracle, autobolge | differential testing | native + adapter | hello SEMANTIC_PARITY on 4 independent backends (all 48 steps) | DEMONSTRATED |
 | CORPUS_EXECUTION | scan over corpus | walbolge, engine, oracle | test suites | native | corpus/ scanned | DEMONSTRATED |
 | MALFORMED_INPUT_ANALYSIS | INVALID_PROGRAM | walbolge decode | fuzzing | native | invalid_chars test | DEMONSTRATED |
 | RESOURCE_BUDGET_ANALYSIS | max_steps/wall/output budgets | walbolge, engine | limits | native | INV-008 budget test | DEMONSTRATED |

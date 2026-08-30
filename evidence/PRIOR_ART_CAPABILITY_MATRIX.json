@@ -16,7 +16,7 @@
       "local_tool_provider": "walbolge, malbolge-engine, malbolge-oracle, autobolge",
       "external_prior_art": "public Malbolge interpreters",
       "implementation_mode": "native + adapter",
-      "evidence": "tests + run crossval",
+      "evidence": "run/crossval on 4 independent backends",
       "status": "DEMONSTRATED"
     },
     {
@@ -151,7 +151,7 @@
       "local_tool_provider": "malbolge-differential, opera-solver UnifiedEvaluator",
       "external_prior_art": "differential runners",
       "implementation_mode": "adapter",
-      "evidence": "crossval hello SEMANTIC_PARITY on 3 backends; malformed -> SEMANTIC_DIVERGENCE",
+      "evidence": "crossval on 4 independent backends; malformed -> SEMANTIC_DIVERGENCE",
       "status": "DEMONSTRATED"
     },
     {
@@ -160,7 +160,7 @@
       "local_tool_provider": "walbolge, malbolge-engine, malbolge-oracle, autobolge",
       "external_prior_art": "differential testing",
       "implementation_mode": "native + adapter",
-      "evidence": "hello SEMANTIC_PARITY (all 48 steps); malformed SEMANTIC_DIVERGENCE",
+      "evidence": "hello SEMANTIC_PARITY on 4 independent backends (all 48 steps)",
       "status": "DEMONSTRATED"
     },
     {

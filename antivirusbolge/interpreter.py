@@ -110,7 +110,84 @@ def get_backend(name: str = "walbolge"):
         return MalbolgeEngineBackend()
     if name == "oracle":
         return OracleBackend()
+    if name == "autobolge":
+        return AutobolgeBackend()
     raise ValueError(f"Unknown backend: {name}")
+
+
+AUTOBOLGE_EXE = os.environ.get(
+    "AVB_AUTOBOLGE_EXE",
+    r"C:\Development\ISyCo Git\Autobolge\zig\bolge.exe")
+
+
+class AutobolgeBackend:
+    """Autobolge Zig 3^10 VM via BOLG1->BOLG2 container.
+
+    An independent Malbolge VM written in Zig. The harness spawns bolge.exe as a
+    host process (HOST_PROCESS_START present at adapter level); no specimen can
+    reach or exercise it."""
+    name = "autobolge"
+    version = "0.1.0"
+    language = "Zig"
+    host_map = HostCapabilityMap(
+        backend="autobolge",
+        capabilities_present=["HOST_PROCESS_START"],
+        capabilities_reachable=[],
+        capabilities_exercised=[],
+        boundary_violations=0,
+        seam="antivirusbolge.interpreter.AutobolgeBackend -> bolge.exe (subprocess, BOLG1/BOLG2) -> zig/vm.zig",
+    )
+
+    def trace(self, text: str, max_steps: int, max_events: Optional[int],
+              classic: bool = False) -> BackendOutcome:
+        import struct
+        import subprocess
+        import tempfile
+        try:
+            cells = [ord(c) for c in text.strip()]
+            blob = b"BOLG1" + struct.pack("<Q", 1)
+            blob += struct.pack("<I", len(cells))
+            for c in cells:
+                blob += struct.pack("<I", c)
+            blob += struct.pack("<I", 0)
+            blob += struct.pack("<I", max_steps)
+            tmp = tempfile.gettempdir()
+            ib = os.path.join(tmp, "avb_bolg_in.bin")
+            ob = os.path.join(tmp, "avb_bolg_out.bin")
+            with open(ib, "wb") as f:
+                f.write(blob)
+            proc = subprocess.run([AUTOBOLGE_EXE, ib, ob],
+                                  capture_output=True, timeout=120)
+            data = open(ob, "rb").read()
+        except Exception as exc:
+            return BackendOutcome(steps=0, halted=False,
+                                  halt_reason="interpreter_error",
+                                  output="", peak_memory=0, error=f"autobolge: {exc}")
+
+        try:
+            if len(data) < 13 or data[:5] != b"BOLG2":
+                return BackendOutcome(steps=0, halted=False,
+                                      halt_reason="interpreter_error",
+                                      output="", peak_memory=0,
+                                      error=f"bad BOLG2 ({proc.returncode})")
+            pos = 5
+            (count,) = struct.unpack_from("<Q", data, pos); pos = 13
+            (olen,) = struct.unpack_from("<I", data, pos); pos += 4
+            out = data[pos:pos + olen]; pos += olen
+            (steps, term) = struct.unpack_from("<QB", data, pos); pos += 9
+            fc, fa, fd = struct.unpack_from("<III", data, pos)
+        except Exception as exc:
+            return BackendOutcome(steps=0, halted=False,
+                                  halt_reason="interpreter_error",
+                                  output="", peak_memory=0, error=f"parse: {exc}")
+
+        halted = bool(term)
+        halt_reason = "halt_opcode" if halted else "max_steps"
+        return BackendOutcome(
+            steps=steps, halted=halted, halt_reason=halt_reason,
+            output=out.decode("latin-1", "replace"), peak_memory=0,
+            final_state={"a": fa, "c": fc, "d": fd},
+        )
 
 
 def available_backends() -> dict:
@@ -120,6 +197,7 @@ def available_backends() -> dict:
         "walbolge": True,
         "malbolge-engine": os.path.exists(MALBOLGE_ENGINE_EXE),
         "oracle": os.path.isdir(ORACLE_PATH),
+        "autobolge": os.path.exists(AUTOBOLGE_EXE),
     }
 
 

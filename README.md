@@ -60,7 +60,7 @@ a `SECURITY_CLASS` (`OUTPUT_ONLY`, `PURE_VM_COMPUTE`, `INVALID_PROGRAM`,
 `NONTERMINATING_WITHIN_BUDGET`, `INTERPRETER_CRASH`, ...) and a conservative
 `SEVERITY`. Budget exceedance yields `INCONCLUSIVE`, never `SAFE`.
 
-## Two backends
+## Backends
 
 - **Walbolge** (pure Python) — full per-event VM trace; host seam absent.
 - **Malbolge-Engine** (C) — independent interpreter via JSONL IPC (output/steps/
@@ -68,10 +68,13 @@ a `SECURITY_CLASS` (`OUTPUT_ONLY`, `PURE_VM_COMPUTE`, `INVALID_PROGRAM`,
   `HOST_PROCESS_START` present), but no specimen can reach or exercise it.
 - **malbolge-oracle** (Python) — independent reference VM exposing final
   state a/c/d and the full 59049-cell memory.
+- **Autobolge** (Zig) — independent 3^10 VM via BOLG1->BOLG2 container.
 
 `parity` and `crossval` run the same specimen on independent backends and
 classify parity/divergence. `hello_classic.mal` demonstrates `SEMANTIC_PARITY`
-across all three (48 steps, `Hello, world.`).
+across **all four** (48 steps, `Hello, world.`). Backends may expose different
+final-state models (e.g. oracle vs autobolge registers); parity is keyed on
+output + halt, keeping state-model differences explicit.
 
 ## M2: workbench
 

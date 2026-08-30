@@ -54,27 +54,31 @@
 
 ## PRIOR_ART_CONFLICTS
 
-Public search (2026-08-30, DuckDuckGo):
+Public search (2026-08-30, multi-query: DuckDuckGo x3 + esolangs.org):
 - `wallstop/malbolge-toolkit` + MalbolgeGenerator: automated **generator +
   interpreter** (synthesis/execution prior art).
 - `albertovillaosorno/malbolge`: C-to-Malbolge compiler research lab with exact
   VMs, translation validation, **self-modifying-code analysis** (RE/tooling prior
   art).
-- Generic AV behavior-monitoring literature (Microsoft Defender behavioral
-  blocking, MITRE ATT&CK, explainability-for-malware-detection papers): general
-  behavioral-security prior art, NOT Malbolge-specific.
+- Generic AV/behavior-monitoring / formal-verification literature (Microsoft
+  Defender behavioral blocking, MITRE ATT&CK, dynamic malware analysis,
+  VERDICT/AGREE formal cyber properties): general behavioral-security prior art,
+  NOT Malbolge-specific.
+- esolangs.org wiki: **no results** for Malbolge analysis/debugger/security.
 
-No source found that combines Malbolge execution+debugging+RE+synthesis with
-explicit **behavioral security verdicts and VM/interpreter/adapter/host boundary
-attribution** as a security analyzer. The novelty claim is *plausible* but the
-search was a single query (see SEARCH_LIMITATIONS).
+No source found (across the broadened sweep) that combines Malbolge
+execution+debugging+RE+synthesis with explicit **behavioral security verdicts
+and VM/interpreter/adapter/host boundary attribution** as a security analyzer.
 
 ## SEARCH_LIMITATIONS
 
-- One DuckDuckGo query, not exhaustive (no arxiv/academic sweep, no ESOLANG-wiki
-  archaeology, no full repo scan of every fork).
+- 2026-08-30 sweep: DuckDuckGo (3 distinct queries: "Malbolge behavioral security
+  analysis verdict VM host boundary", "malbolge disassembler OR debugger OR
+  differential testing tool", the M1-era query) + esolangs.org wiki search.
+- Not exhaustive: no GitHub code search across all forks, no arxiv full-text
+  sweep, no academic databases, no Malbolge-specific mailing lists/discord.
 - "First publicly documented" cannot be proven by absence; it can only be
-  *not-yet-contradicted*.
+  *not-yet-contradicted* across the searches performed.
 
 ## VERDICT
 
@@ -88,9 +92,10 @@ debugging, reverse engineering, synthesis, differential validation, behavioral
 analysis, and explicit VM-to-host security attribution in one evidence-driven
 system" is now backed by execution evidence.
 
-The **novelty** claim remains *conditional*: a prior-art search found no source
-combining Malbolge execution+debugging+RE+synthesis with explicit behavioral
-security verdicts and VM/interpreter/adapter/host boundary attribution. This is
-*not-yet-contradicted*, not *proven* — it is bounded by SEARCH_LIMITATIONS
-(one query). It should be re-run with a broader sweep before being published as
+The **novelty** claim remains *conditional*: a broadened prior-art sweep
+(DuckDuckGo x3 + esolangs.org) found no source combining Malbolge
+execution+debugging+RE+synthesis with explicit behavioral security verdicts and
+VM/interpreter/adapter/host boundary attribution. This is *not-yet-contradicted*,
+not *proven* — still bounded by SEARCH_LIMITATIONS (no GitHub code search, no
+arxiv/academic sweep). It should be re-run with those before publishing as
 "first".
