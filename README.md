@@ -103,6 +103,36 @@ backends; the antivirus scans them OUTPUT_ONLY / no host effects. See
 `evidence/CLAIM_GATE.md`: verdict **READY** (synthesis gap closed); the novelty
 claim is conditional on a broader prior-art sweep.
 
+## Historical context and provenance
+
+We do not claim to have invented the Malbolge ecosystem we depend on.
+Antivirusbolge exists because of that ecosystem.
+
+Prior interpreters, generators, MalbolgeLISP, and other research provided
+important reference points and, in limited cases, upstream artifacts used for
+validation. Their authorship is preserved (see `evidence/PROVENANCE.md`).
+
+Our contribution is the evidence-driven workbench and the integration of
+execution, debugging, reverse engineering, synthesis, differential validation,
+behavioral security classification, and explicit VM/interpreter/adapter/host
+attribution.
+
+**The project began with disagreement.** The earliest dated artifact in this
+project family is E31-A (2026-08-13): a literal, independent implementation of
+the Iizawa et al. (2005) Appendix C Malbolge semantics, written from the paper's
+own pseudocode. It did not agree with the paper's §2.2 labels for `<` and `/`.
+Rather than choose which authority was wrong, we built additional observers and
+differential checks. That method — independent observers, pinned (not hidden)
+divergence, no single document or runtime as authority by decree — became the
+design principle of Antivirusbolge. The I/O discrepancy is documented
+separately, with reproducible evidence and exact provenance
+(`evidence/IIZAWA_IO_DISCREPANCY.md`, `IIZAWA_ERRATUM_CANDIDATE.md`,
+`IIZAWA_PRIORITY_SEARCH.md`, `HISTORICAL_TIMELINE.md`).
+
+We claim the workbench, not the history we stand on. The goal is not to replace
+the tools that came before it. The goal is to contribute enough original,
+reproducible work to deserve a place beside them.
+
 ## Structure
 
 ```

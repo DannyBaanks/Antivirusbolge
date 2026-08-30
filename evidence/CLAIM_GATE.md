@@ -1,4 +1,4 @@
-# ANTIVIRUSBOLGE — CLAIM GATE (M2)
+# ANTIVIRUSBOLGE — CLAIM GATE (M2 + historical/priority dossier)
 
 ## TARGET CLAIM
 
@@ -9,93 +9,121 @@
 
 ## TARGET NOVELTY CLAIM (conditional)
 
-> "To the best of our public-source search, Antivirusbolge is the first publicly
-> documented Malbolge-specific platform combining traditional Malbolge execution,
-> debugging, reverse-engineering and synthesis capabilities with explicit
-> behavioral security verdicts and VM/interpreter/adapter/host boundary
-> attribution."
+> "To the best of our documented public-source review as of 2026-08-30,
+> Antivirusbolge appears to be the first publicly documented Malbolge-specific
+> platform combining traditional Malbolge execution, debugging, reverse
+> engineering and synthesis with explicit behavioral security verdicts and
+> VM/interpreter/adapter/host boundary attribution."
 
 ## REQUIRED_CAPABILITIES (from PRIOR_ART_CAPABILITY_MATRIX, 27 rows)
 
 | Cluster | Capability | Status |
 |---------|-----------|--------|
-| execution | EXECUTE, TRACE, CORPUS_EXECUTION, MALFORMED_INPUT_ANALYSIS, RESOURCE_BUDGET_ANALYSIS | DEMONSTRATED |
-| debugging | STEP, BREAKPOINT, WATCHPOINT, STATE_INSPECT, MEMORY_INSPECT, REWIND_OR_STEP_BACK | DEMONSTRATED (STEP/BREAKPOINT/WATCHPOINT/REWIND native; STATE/MEMORY via oracle adapter) |
+| execution | EXECUTE, TRACE, CORPUS_EXECUTION, MALFORMED_INPUT_ANALYSIS, RESOURCE_BUDGET_ANALYSIS | DEMONSTRATED (4 classic 3^10 backends + bolge19 3^19) |
+| debugging | STEP, BREAKPOINT, WATCHPOINT, STATE_INSPECT, MEMORY_INSPECT, REWIND_OR_STEP_BACK | DEMONSTRATED |
 | reverse-engineering | DISASSEMBLE, DECOMPILE_OR_HIGH_LEVEL_RECONSTRUCTION, CONTROL_FLOW_ANALYSIS, SELF_MODIFICATION_ANALYSIS, STRUCTURAL_ANALYSIS | DEMONSTRATED |
-| synthesis | GENERATE_OR_SYNTHESIZE, ROUNDTRIP_VERIFY | PARTIAL (only easy transitions) |
-| differential | DIFFERENTIAL_EXECUTION, CROSS_INTERPRETER_PARITY | DEMONSTRATED (crossval on 3 independent backends) |
+| synthesis | GENERATE_OR_SYNTHESIZE, ROUNDTRIP_VERIFY | DEMONSTRATED (compact generator + roundtrip on 3 independent backends) |
+| differential | DIFFERENTIAL_EXECUTION, CROSS_INTERPRETER_PARITY | DEMONSTRATED (crossval on 4 classic 3^10 backends; variant-aware) |
 | security | HOST_CAPABILITY_MAP, HOST_REACHABILITY, HOST_EFFECT_ATTRIBUTION, BEHAVIORAL_SECURITY_VERDICT, REPRODUCIBLE_RECEIPT, REPORT_VERIFY, INTERPRETER_CRASH_ATTRIBUTION | DEMONSTRATED |
 
 ## DEMONSTRATED (by execution, not prose)
 
-- Execution + per-event trace across **3 independent Malbolge VMs** (Walbolge,
-  Malbolge-Engine C, malbolge-oracle reference).
-- Cross-validation: `hello` -> `SEMANTIC_PARITY` on all 3 (48 steps, identical
-  output hash); a malformed specimen honestly reveals `SEMANTIC_DIVERGENCE`.
+- Execution + per-event trace across **4 independent classic 3^10 Malbolge VMs**
+  (Walbolge, Malbolge-Engine C, malbolge-oracle, Autobolge Zig) plus a 5th,
+  **bolge19 (Unshackled 3^19)**, isolated as a different variant.
+- Cross-validation: `hello` -> `SEMANTIC_PARITY` on all 4 classic backends (48
+  steps, identical output hash); a malformed specimen honestly reveals
+  `SEMANTIC_DIVERGENCE`.
 - Debugger/RE: disassemble, step/rewind, breakpoints (pc/step), watchpoints
   (cell writes), state a/c/d, executed/written-region recovery, control flow.
-- Generation pipeline: synthesize a specimen and verify it reproduces the exact
-  target on 3 independent backends (`ROUNDTRIP_PASS`, never self-validated).
+- Synthesis: `generate_compact` (Malbolge-Translator + malbolge-generator)
+  produces cybersecurity specimens verified `ROUNDTRIP_PASS` on 3 independent
+  backends (never self-validated); corpus of 10 scanned benign.
 - Security core: ORIGIN/STATUS/SECURITY_CLASS/SEVERITY verdicts, per-backend host
   capability map, defensive RCE (walbolge `NO_HOST_PATH_FOUND`,
-  malbolge-engine `HOST_PATH_PRESENT_NOT_REACHED`), receipts + `verify`.
+  malbolge-engine/autobolge `HOST_PATH_PRESENT_NOT_REACHED`), receipts + `verify`.
+
+## HISTORICAL / PRIORITY CLAIMS
+
+Separated by evidence threshold (never collapsed).
+
+| Claim | Wording | Status |
+|-------|---------|--------|
+| I1 — observed a discrepancy | "On 2026-08-13 we observed a reproducible internal inconsistency between §2.2 and Appendix C of Iizawa et al. (2005) for `<`/`/`." | DEMONSTRATED (E31-A package, hashed, two extractions) |
+| I2 — independently documented | "We independently documented and reproduced that inconsistency." | DEMONSTRATED (oracle written from paper text; pypdf second extraction) |
+| I3 — apparent error in published description | "We independently identified an apparent inconsistency in the published I/O description of Iizawa 2005." | DEFENSIBLE, with the caveat that which side is "wrong" is authorial intent |
+| I4 — no earlier public report found | "To the best of our documented search, no earlier public report of this *paper-internal* inconsistency was found." | INCONCLUSIVE (esolangs documents the underlying spec/interpreter reversal, which is prior art; the specific paper-internal inconsistency search was shallow, no Japanese/academic sweep) |
+| I5 — first to discover the I/O reversal | "We were the first to discover the Malbolge `<`/`/` I/O reversal." | **NOT_ALLOWED** — the reversal is prior art (esolangs wiki, page last edited 13 Nov 2025) |
+
+## HISTORICAL GENEALOGY (origin story, evidence-supported)
+
+> "The project began with disagreement. Our first independent Malbolge oracle —
+> a literal implementation of Iizawa 2005 Appendix C — did not agree with the
+> paper's own §2.2 labels. Rather than decide which authority was wrong, we
+> built additional observers and differential checks. That method — independent
+> observers, pinned (not hidden) divergence, no single document or runtime as
+> authority by decree — became the design principle of Antivirusbolge."
+
+Evidence for the sequence: `evidence/HISTORICAL_TIMELINE.md` (T0..T7). The
+earliest dated artifact is E31-A (2026-08-13). This is a *precedent* claim, not
+a claim that E31-A already contained the workbench idea.
 
 ## MISSING / GAP
 
-- **Full-text synthesis was NOT_DEMONSTRATED — now CLOSED.** The compact
-  word-by-word generator is the `malbolge-generator` package, found at
-  `C:\Development\E31-A-Nagoya\malbolge_toolkit\malbolge\` (generator.py +
-  encoding.py), used by Malbolge-Translator. With it, short cybersecurity
-  specimens generate in <1s each and are verified ROUNDTRIP_PASS with identical
-  output on all 3 independent backends. Generation is no longer the blocker.
-  Remaining caveat: per-word search cost scales with text length (a full book
-  chapter is slow but feasible in chunks); this is a performance bound, not a
-  correctness gap.
+- **Full-book synthesis is a performance bound, not a correctness gap** (the
+  compact generator produces correct compact specimens; per-word search cost
+  scales with text length). Correctness demonstrated; throughput on a full book
+  not demonstrated in-session.
+- **bolge19 native-variant demonstration is NOT_DEMONSTRATED** — gated on
+  third-party MalbolgeLISP 3^19 images (see README + PROVENANCE.md). This is the
+  only external dependency; it does not affect the classic 3^10 parity claims.
+- **I5 (first-to-discover the reversal) and Level-4 "absolute first" remain
+  NOT_ALLOWED.**
 
 ## PRIOR_ART_CONFLICTS
 
-Public search (2026-08-30, multi-query: DuckDuckGo x3 + esolangs.org):
-- `wallstop/malbolge-toolkit` + MalbolgeGenerator: automated **generator +
-  interpreter** (synthesis/execution prior art).
-- `albertovillaosorno/malbolge`: C-to-Malbolge compiler research lab with exact
-  VMs, translation validation, **self-modifying-code analysis** (RE/tooling prior
-  art).
-- Generic AV/behavior-monitoring / formal-verification literature (Microsoft
-  Defender behavioral blocking, MITRE ATT&CK, dynamic malware analysis,
-  VERDICT/AGREE formal cyber properties): general behavioral-security prior art,
-  NOT Malbolge-specific.
-- esolangs.org wiki: **no results** for Malbolge analysis/debugger/security.
+Public search (2026-08-30, DuckDuckGo x3 + esolangs.org):
+- `wallstop/malbolge-toolkit` + MalbolgeGenerator (generator/interpreter).
+- `albertovillaosorno/malbolge` (C-to-Malbolge compiler lab, self-modifying-code
+  analysis — RE/tooling prior art).
+- esolangs.org/wiki/Malbolge — documents the **spec-vs-reference-interpreter
+  `<`/`/` reversal** (prior art for the phenomenon).
+- Generic AV/behavioral/formal-verification literature (NOT Malbolge-specific).
 
-No source found (across the broadened sweep) that combines Malbolge
-execution+debugging+RE+synthesis with explicit **behavioral security verdicts
-and VM/interpreter/adapter/host boundary attribution** as a security analyzer.
+No source found that combines Malbolge execution+debugging+RE+synthesis with
+explicit behavioral security verdicts + VM/interpreter/adapter/host attribution
+as a security analyzer.
 
 ## SEARCH_LIMITATIONS
 
-- 2026-08-30 sweep: DuckDuckGo (3 distinct queries: "Malbolge behavioral security
-  analysis verdict VM host boundary", "malbolge disassembler OR debugger OR
-  differential testing tool", the M1-era query) + esolangs.org wiki search.
-- Not exhaustive: no GitHub code search across all forks, no arxiv full-text
-  sweep, no academic databases, no Malbolge-specific mailing lists/discord.
-- "First publicly documented" cannot be proven by absence; it can only be
-  *not-yet-contradicted* across the searches performed.
+- 2026-08-30: DuckDuckGo (3 workbench queries + Iizawa-specific) + esolangs.org.
+- Iizawa paper is Japanese; **no Japanese-language search** (CiNii / CiNii
+  Articles / Nagoya project page) was run — a likely gap.
+- No GitHub code-search / issue-tracker sweep; no paper-revision/erratum check.
+- "First publicly documented" can only be *not-yet-contradicted*, not proven.
 
 ## VERDICT
 
-**READY.**
+**READY** for the workbench claim (all 27 capabilities DEMONSTRATED).
 
-The synthesis gap is closed: the compact generator is available and verified
-(end-to-end roundtrip on 3 independent backends, cybersecurity corpus
-generated and scanned benign). All 27 capabilities are DEMONSTRATED. The
-target claim "full-spectrum Malbolge analysis and security workbench: execution,
-debugging, reverse engineering, synthesis, differential validation, behavioral
-analysis, and explicit VM-to-host security attribution in one evidence-driven
-system" is now backed by execution evidence.
+**READY** for the genealogy claim ("the project began with disagreement";
+E31-A 2026-08-13 is the fossil date; the independent-oracle/discrepancy method
+is documented, hashed, and reproducible).
 
-The **novelty** claim remains *conditional*: a broadened prior-art sweep
-(DuckDuckGo x3 + esolangs.org) found no source combining Malbolge
-execution+debugging+RE+synthesis with explicit behavioral security verdicts and
-VM/interpreter/adapter/host boundary attribution. This is *not-yet-contradicted*,
-not *proven* — still bounded by SEARCH_LIMITATIONS (no GitHub code search, no
-arxiv/academic sweep). It should be re-run with those before publishing as
-"first".
+**NOT_READY / NOT_ALLOWED** for:
+- the novelty claim at Level 3 ("first publicly documented") — conditional,
+  needs the Japanese/academic/GitHub sweep to complete;
+- Level 4 ("absolute first") — NOT_ALLOWED;
+- I5 ("first to discover the I/O reversal") — NOT_ALLOWED (prior art).
+
+## CLAIM LADDER (summary)
+
+| Level | Statement | Status |
+|-------|-----------|--------|
+| 1 | evidence-driven full-spectrum workbench | READY |
+| 2 | novelty, conditional (no earlier combined platform found) | READY (conditional, with documented search limits) |
+| 3 | "to the best of our documented public-source review … appears to be the first" | PENDING broader search |
+| 4 | "absolute first ever" | NOT_ALLOWED |
+
+Historical ladder: I1/I2 DEMONSTRATED, I3 DEFENSIBLE, I4 INCONCLUSIVE, I5
+NOT_ALLOWED.
