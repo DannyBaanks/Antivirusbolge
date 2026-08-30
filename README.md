@@ -72,6 +72,18 @@ a `SECURITY_CLASS` (`OUTPUT_ONLY`, `PURE_VM_COMPUTE`, `INVALID_PROGRAM`,
 - **bolge19** (Zig, malbolge-lisp-forensics) — native Malbolge **Unshackled
   3^19** VM (a different Malbolge variant). Runs `.mb`/image files.
 
+> **bolge19 dependency note (the only one).** bolge19 itself is built from our
+> own `malbolge-lisp-forensics/src/bolge19/main.zig` and compiles/runs with just
+> Zig. But to run *properly in its native 3^19 variant* it needs a genuine
+> Malbolge Unshackled 3^19 image, and those come from the third-party
+> **MalbolgeLISP** runtime (`init_module.mb`/`core.mb`/`lisp.mb`). The `.mb`
+> files floating in the corpus are actually classic 3^10 programs stored as
+> `.mb`, so running them under bolge19 yields 3^19-interpreted output, not the
+> intended bytes. Therefore bolge19's **native-variant demonstration is
+> NOT_DEMONSTRATED** — it is gated on the third-party MalbolgeLISP images.
+> **Everything else in Antivirusbolge runs entirely on its own**; only this one
+> component depends on an external repo to demonstrate its native variant.
+
 `parity` and `crossval` run the same specimen on independent backends and
 classify parity/divergence **within the same Malbolge variant**. `hello_classic`
 shows `SEMANTIC_PARITY` across the 4 classic 3^10 backends (48 steps, `Hello,

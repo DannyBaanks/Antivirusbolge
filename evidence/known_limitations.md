@@ -47,14 +47,21 @@
    chapters in `Malbolge-Translator/artifacts/quijote` are real, pre-generated
    proof of that scale.
 
-10. **bolge19 is a separate Malbolge variant, not a parity peer for classic
-    specimens.** It runs the Malbolge **Unshackled 3^19** semantics (fast20.c),
-    a different variant from classic 3^10. A classic specimen runs under it but
-    yields a different observation model (hello: 47 steps / different bytes on
-    bolge19 vs 48 / `Hello, world.` on the 3^10 backends). `crossval` groups by
-    variant and reports bolge19 in `other_variant_backends`, never folded into
-    classic parity. No 3^19 corpus image is currently present, so its use on
-    actual Unshackled specimens is not yet demonstrated.
+10. **bolge19 is a separate Malbolge variant, and its native-variant
+    demonstration is NOT_DEMONSTRATED due to a third-party dependency.** bolge19
+    runs the Malbolge **Unshackled 3^19** semantics (fast20.c), a different
+    variant from classic 3^10. It is built from our own
+    `malbolge-lisp-forensics/src/bolge19/main.zig` and compiles with Zig alone;
+    the VM itself is demonstrated (it executes genuine 3^19 MalbolgeLISP
+    `init_module.mb` and HALTs deterministically). But a genuine 3^19 image that
+    cleanly outputs text and halts is not bundled here — the `.mb` files in the
+    corpus (e.g. `hello_world.mb`) are classic 3^10 programs stored as `.mb`, so
+    bolge19 interprets them under 3^19 and produces different bytes. Real
+    Unshackled 3^19 images come from the third-party **MalbolgeLISP** repo, so
+    bolge19's proper native-variant behavior depends on that external runtime.
+    `crossval` keeps bolge19 out of classic parity (`other_variant_backends`);
+    only this one component has an external dependency — the rest of
+    Antivirusbolge is self-contained.
 
 ## Claim discipline
 
