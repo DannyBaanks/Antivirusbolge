@@ -87,6 +87,30 @@ The thesis is therefore **NOT accessible in this search**; the suspect remains
 OPEN. Closing it requires the Nagoya thesis archive (access-restricted or
 offline), a library interlibrary loan, or the author's copy.
 
+## Action plan to close the thesis gap (concrete routes)
+
+1. **Contact the authors directly** (the definitive route). The paper's group is
+   at Nagoya University (Sakai / Nishida / Sakabe); the official project page is
+   `https://www.trs.css.i.nagoya-u.ac.jp/projects/Malbolge/`. Ask, in Japanese and
+   English, whether the M2005 thesis (or a published errata) ever addressed the
+   §2.2 ↔ Appendix C I/O inversion. Keep a dated record of the correspondence.
+2. **Interlibrary loan (ILL)** of the M2005 thesis via CiNii Dissertations
+   (`CRID 1574231874010037248`), which records the thesis record and links to the
+   owning library. ILL is the standard route when the institutional repository
+   is offline/restricted.
+3. **Nagoya institutional repository retry** (`nagoya.repo.nii.ac.jp`) from a
+   browser session (the search endpoint returned HTTP 406 to automated clients;
+   the metadata may be browsable interactively or via a different search
+   endpoint).
+4. **IEICE membership / NII archive** for the 2005 paper's record and any
+   revision history (the paper record ID `KJ00003360667`).
+5. **Re-check the Wayback Machine** for the 2006-era thesis URL
+   (`www.is.nagoya-u.ac.jp/thesis/M2005/i/M350402019e.pdf`), which was live when
+   the esolangs Talk page linked it (1 Jun 2006).
+
+Priority: (1) author contact is the strongest for intent, (2) ILL for the text,
+(3)-(5) fallbacks. All attempts should be date-stamped and appended here.
+
 ## Status
 
 **NO_EARLIER_EXPLICIT_REPORT_FOUND_IN_DOCUMENTED_SEARCH.**

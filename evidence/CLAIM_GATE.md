@@ -83,8 +83,9 @@ serious unchecked item. If it states/implies the earlier paper's I/O symbols
 were inverted, I4 is contradicted. **Full text was NOT obtainable in this
 search** (esolangs-linked URL and current Nagoya mirror → 404; CiNii not
 scrapeable; Nagoya repo → HTTP 406). The suspect remains OPEN (see
-IIZAWA_PRIORITY_SEARCH.md). Closing it needs the Nagoya thesis archive, an
-interlibrary loan, or the author's copy.
+IIZAWA_PRIORITY_SEARCH.md, which records an action plan: author contact > ILL >
+repo/archive retries > Wayback Machine). Closing it needs the Nagoya thesis
+archive, an interlibrary loan, or the author's copy.
 
 ## HISTORICAL GENEALOGY (origin story, evidence-supported)
 
