@@ -1,65 +1,101 @@
 # Iizawa 2005 — Priority / prior-art search for the I/O discrepancy
 
-Date of search: 2026-08-30 (Antivirusbolge historical-claim dossier).
+Date of search: 2026-08-30 (English + Japanese sweep).
 
 ## Question
 
 Was the internal inconsistency between §2.2 and Appendix C of Iizawa et al.
-(2005) — and the underlying `<`/`/` I/O reversal — publicly documented before
-E31-A (2026-08-13)?
+(2005) — the specific contradiction in the assignment of the Malbolge `<` and
+`/` I/O operations — publicly documented before E31-A (2026-08-13)?
 
-## Queries run
+This is distinct from the broader question of whether the Malbolge
+spec-vs-reference-interpreter I/O reversal is known (it is; see below).
 
-| Query / source | Date | Result |
-|----------------|------|--------|
-| DuckDuckGo: "Iizawa 2005 Malbolge IEICE input output Appendix C discrepancy" | 2026-08-30 | No results |
-| esolangs.org/wiki/Malbolge | 2026-08-30 | **Prior-art data point found (see below)** |
-| DuckDuckGo: "malbolge disassembler OR debugger OR differential testing tool" | 2026-08-30 | No Malbolge-specific security analyzer |
-| DuckDuckGo: "Malbolge behavioral security analysis verdict VM host boundary" | 2026-08-30 | No Malbolge-specific security analyzer |
-| esolangs.org wiki search "Malbolge analysis debugger security" | 2026-08-30 | No results |
+## Queries run (English + Japanese)
 
-## Key prior-art data point (esolangs.org/wiki/Malbolge, page last edited 13 Nov 2025)
+| Query / source | Language | Result |
+|----------------|----------|--------|
+| DuckDuckGo: exact paper title variants (`Programming Method in Obfuscated Language Malbolge`; `難読プログラミング言語Malbolgeにおけるプログラム構成手法`) | EN/JP | Paper well identified in CiNii / J-GLOBAL / Nagoya; no erratum found |
+| DuckDuckGo: `飯澤 / 飯沢 Malbolge` | JP | Nagoya project page, Wikipedia, PDF mirror; no erratum |
+| DuckDuckGo: `Malbolge 入出力 反転 仕様` (I/O reversed spec) | JP | Wikipedia/qiita/blog; documents the known spec↔interpreter reversal |
+| esolangs.org/wiki/Malbolge | EN | **prior art**: spec vs reference interpreter I/O reversed |
+| esolangs.org/wiki/Talk:Malbolge | EN | **2006 discussion of the Iizawa paper** (see below) |
+| esolangs.org wiki search "Malbolge analysis debugger security" | EN | no results |
+| CiNii Research | JP | paper record `CRID 1520572359236469376`; no erratum |
+| J-GLOBAL | JP | paper record `JGLOBAL_ID 200902281986673262`; no erratum |
+| GitHub global code search: `"Programming Method in Obfuscated Language Malbolge"`, `"SS2005-22" Malbolge`, `Iizawa reversed Malbolge`, `Iizawa putc Malbolge` | EN | **0 results each**; broad `Malbolge Iizawa` → ~5 files (documentation/references), none stating "§2.2 contradicts Appendix C" |
+| CiNii: Iizawa master's thesis (2006) | JP | record `CRID 1574231874010037248` exists; full text not inspected (see OPEN SUSPECT) |
 
-The Malbolge esolang wiki documents the I/O instruction-table convention and an
-explicit note:
+## Established prior art (NOT our discovery)
 
-> "The table above uses a criterion for input and output instruction codes that
-> matches the reference interpreter instead of the one from the specification,
-> **which are reversed with respect to each other**."
+1. **esolangs.org/wiki/Malbolge** (page last edited 13 Nov 2025): the table "uses a
+   criterion for input and output instruction codes that matches the reference
+   interpreter instead of the one from the specification, which are reversed
+   with respect to each other." — documents the spec↔reference-interpreter
+   `<`/`/` reversal.
+2. **Qiita (2023)**: a Japanese article on Malbolge states, in essence, `<` =
+   output, `/` = input, and "in the original implementation they are reversed,"
+   while also using Iizawa's paper as a terminology/programming reference.
+3. **Lou Scheffer, "Programming in Malbolge"** and general Malbolge literature:
+   the spec/interpreter I/O quirk is longstanding community knowledge.
 
-This is public, dated prior art (page revision last edited 13 Nov 2025) that
-already records that the Malbolge **specification** and the **reference
-interpreter** assign `<` and `/` in opposite directions. It does **not** cite
-Iizawa 2005 or its internal §2.2/Appendix C inconsistency specifically.
+These establish the broader reversal as prior art. We do NOT claim to have
+discovered it.
 
-## What this means for the claims
+## Near-miss prior art: esolangs.org/wiki/Talk:Malbolge (1 Jun 2006)
 
-- **The underlying `<`/`/` reversal (spec vs reference interpreter) is KNOWN
-  prior art.** We do NOT claim to have discovered that inversion.
-- The E31-A finding is **consistent with** that known quirk: Iizawa §2.2 labels
-  match the specification side (`<`=INPUT, `/`=OUTPUT), while Appendix C code
-  matches the reference-interpreter side (`<`=putc, `/`=getc). The paper mixes
-  the two conventions inside one document.
-- **The scoped, defensible independent finding** is: the *specific internal
-  inconsistency inside Iizawa et al. (2005)* — §2.2 labels vs the same paper's
-  Appendix C code — was independently documented by E31-A (2026-08-13) with two
-  independent PDF extractions. Whether a specific report of *that paper's*
-  internal inconsistency predates E31-A is not resolved by this search.
+A 2006 discussion (Rune/Keymaker) found the Iizawa paper, obtained the Japanese
+PDF, and discussed Appendix C:
+- Rune: "the C code is obviously just a Malbolge interpreter."
+- The discussion also links Iizawa's master's thesis (M2005) and a 2012 thesis
+  with a Malbolge decompiler + an EOF-halting cat program (Appendix B).
+
+The indexed discussion **does not** state the §2.2 ↔ Appendix C internal I/O
+inconsistency for `<`/`/`. It recognizes Appendix C as an interpreter and
+comments on the paper's content, but the specific self-contradiction is not
+identified there. This is the closest public near-miss found; it does not
+contain our claim, but it proves people examined the same document as early as
+2006.
+
+## OPEN SUSPECT (not resolved in this search)
+
+**Iizawa's master's thesis (2006): "難解言語Malbolgeに基づくプログラム難読化に関する研究"**
+(CiNii `CRID 1574231874010037248`; an M2005 thesis PDF is linked from the
+esolangs Talk page). Chronologically:
+
+```
+Jun 2005   paper
+   ↓
+2006        Iizawa master's thesis
+```
+
+If the thesis states or implies the earlier paper's I/O symbols were inverted,
+I4 would be contradicted. If it uses a consistent convention without mentioning
+the earlier error, it shows later consistency but not necessarily a prior public
+report of the discrepancy. If nothing appears, the claim strengthens. Full text
+was not indexed/obtained in this search. This is the highest-value open item.
 
 ## Status
 
-**CONTEMPORARY / INCONCLUSIVE.** The esolangs page documents the underlying
-spec/interpreter reversal (prior art for the *phenomenon*), but no earlier
-report of the *specific Iizawa 2005 internal §2.2↔Appendix C inconsistency* was
-found. Absence of a search hit is NOT proof of first report.
+**NO_EARLIER_EXPLICIT_REPORT_FOUND_IN_DOCUMENTED_SEARCH.**
+
+- No earlier public source was found that explicitly identifies the *internal
+  §2.2 ↔ Appendix C inconsistency* in Iizawa et al. (2005) for the `<`/`/`
+  assignment.
+- The broader spec↔reference-interpreter reversal IS prior art (esolangs,
+  Qiita 2023, general Malbolge literature) and is explicitly not claimed.
+- The 2026 esolangs Talk shows people examined the paper since 2006 without
+  (in the indexed record) stating this specific contradiction.
+- The 2006 thesis remains the last serious, unchecked suspect.
+
+Absence of a search hit is NOT proof of first report.
 
 ## Search limitations
 
-- Single-search-engine (DuckDuckGo) + esolangs.org only.
-- No Japanese-language search (the paper and its Nagoya project pages are
-  Japanese) — a likely gap for this paper.
-- No GitHub code-search / issue-tracker sweep for "Iizawa" or the specific
-  symbols, no academic database (CiNii/CiNii Articles would be the natural
-  Japanese index), no paper-revision/erratum check at the IEICE / Nagoya page.
-- The IEICE Technical Report SS2005-22 revision history was not directly
-  verified.
+- Search engines used: DuckDuckGo, CiNii Research, J-GLOBAL, GitHub code search,
+  esolangs.org (wiki + talk). Not exhaustive of all Japanese academic indexes
+  (CiNii Articles full-text, J-STAGE full-text of SS2005-22 not opened).
+- No direct full-text inspection of the 2006 thesis (the OPEN SUSPECT).
+- No check of Nagoya thesis repository full text, no IEICE membership portal
+  access, no paper-revision/erratum logs at IEICE.
+- Date-sensitive: pages may be edited after 2026-08-30.

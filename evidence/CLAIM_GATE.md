@@ -52,8 +52,35 @@ Separated by evidence threshold (never collapsed).
 | I1 — observed a discrepancy | "On 2026-08-13 we observed a reproducible internal inconsistency between §2.2 and Appendix C of Iizawa et al. (2005) for `<`/`/`." | DEMONSTRATED (E31-A package, hashed, two extractions) |
 | I2 — independently documented | "We independently documented and reproduced that inconsistency." | DEMONSTRATED (oracle written from paper text; pypdf second extraction) |
 | I3 — apparent error in published description | "We independently identified an apparent inconsistency in the published I/O description of Iizawa 2005." | DEFENSIBLE, with the caveat that which side is "wrong" is authorial intent |
-| I4 — no earlier public report found | "To the best of our documented search, no earlier public report of this *paper-internal* inconsistency was found." | INCONCLUSIVE (esolangs documents the underlying spec/interpreter reversal, which is prior art; the specific paper-internal inconsistency search was shallow, no Japanese/academic sweep) |
-| I5 — first to discover the I/O reversal | "We were the first to discover the Malbolge `<`/`/` I/O reversal." | **NOT_ALLOWED** — the reversal is prior art (esolangs wiki, page last edited 13 Nov 2025) |
+| I4 — no earlier public report found (specific) | "To the best of our documented public-source search as of August 30, 2026, we found no earlier public report explicitly identifying the internal inconsistency between §2.2 and Appendix C of Iizawa et al. (2005) in their assignment of the Malbolge `<` and `/` I/O operations." | NO_EARLIER_EXPLICIT_REPORT_FOUND_IN_DOCUMENTED_SEARCH (bounded by search limitations; 2006 thesis is the open suspect) |
+| I5 — first to discover the I/O reversal | "We were the first to discover the Malbolge `<`/`/` I/O reversal." | **NOT_ALLOWED** — the reversal is prior art (esolangs, Qiita 2023, general Malbolge literature) |
+
+## Protective distinction (mandatory alongside I4)
+
+> The broader reversal between the original Malbolge **specification and
+> reference interpreter** is established prior art and is **not** claimed as our
+> discovery. Our finding concerns the independently documented **internal
+> inconsistency within the Iizawa paper itself** (§2.2 labels vs Appendix C
+> code).
+
+```
+KNOWN BEFORE US        OUR DOCUMENTED FINDING
+Malbolge spec        ↔   Iizawa §2.2
+Malbolge reference      Iizawa Appendix C
+interpreter             internally inconsistent
+I/O reversed            representation
+```
+
+> "We did not discover that Malbolge has conflicting historical semantics. We
+> independently discovered that a major paper about Malbolge reproduces that
+> conflict internally."
+
+## Open suspect (I4 gate)
+
+**Iizawa's 2006 master's thesis** ("難解言語Malbolgeに基づくプログラム難読化に関する研究",
+CiNii `CRID 1574231874010037248`) is the last serious unchecked item. If it
+states/implies the earlier paper's I/O symbols were inverted, I4 is
+contradicted. Full text was not inspected (see IIZAWA_PRIORITY_SEARCH.md).
 
 ## HISTORICAL GENEALOGY (origin story, evidence-supported)
 
@@ -125,5 +152,5 @@ is documented, hashed, and reproducible).
 | 3 | "to the best of our documented public-source review … appears to be the first" | PENDING broader search |
 | 4 | "absolute first ever" | NOT_ALLOWED |
 
-Historical ladder: I1/I2 DEMONSTRATED, I3 DEFENSIBLE, I4 INCONCLUSIVE, I5
-NOT_ALLOWED.
+Historical ladder: I1/I2 DEMONSTRATED, I3 DEFENSIBLE, I4
+NO_EARLIER_EXPLICIT_REPORT_FOUND_IN_DOCUMENTED_SEARCH, I5 NOT_ALLOWED.

@@ -129,6 +129,12 @@ separately, with reproducible evidence and exact provenance
 (`evidence/IIZAWA_IO_DISCREPANCY.md`, `IIZAWA_ERRATUM_CANDIDATE.md`,
 `IIZAWA_PRIORITY_SEARCH.md`, `HISTORICAL_TIMELINE.md`).
 
+To be precise about what we do and do not claim: **we did not discover that
+Malbolge has conflicting historical semantics — the reversal between the
+original specification and the reference interpreter is established prior art.
+We independently discovered that a major paper about Malbolge reproduces that
+conflict internally** (§2.2 labels vs Appendix C code).
+
 We claim the workbench, not the history we stand on. The goal is not to replace
 the tools that came before it. The goal is to contribute enough original,
 reproducible work to deserve a place beside them.
