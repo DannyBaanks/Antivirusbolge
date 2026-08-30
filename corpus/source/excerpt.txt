@@ -1,0 +1,15 @@
+With a few exceptions, notably Chinese, all modern languages are
+constructed of words which in turn are formed from letters. In any
+given language the number of letters, and their conventional order is
+fixed. Thus English is written with 26 letters and their conventional
+order is A, B, C, D, E, etc. Some letters are used very frequently and
+others rarely. In fact, if ten thousand consecutive letters of a text
+be counted and the frequency of occurrence of each letter be noted,
+the numbers found will be practically identical with those obtained
+from any other text of ten thousand letters in the same language. The
+relative proportion of occurrence of the various letters will also
+hold approximately for even very short texts.
+
+Such a count of a large number of letters, when it is put in the form
+of a table, is known as a frequency table. Every language has its own
+distinctive frequency table

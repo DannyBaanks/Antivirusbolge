@@ -130,3 +130,21 @@ def test_boundary_map_distinguishes_backends():
     assert w.capabilities_reachable == [] and w.capabilities_exercised == []
     assert e.capabilities_reachable == [] and e.capabilities_exercised == []
     assert w.boundary_violations == 0 and e.boundary_violations == 0
+
+
+def test_defensive_rce_no_host_path_for_walbolge():
+    from antivirusbolge.rce import analyze_rce, OPERATIONS
+    r = analyze_rce("walbolge")
+    assert r["classification"] == "NO_HOST_PATH_FOUND"
+    assert r["host_paths_to_host_primitive"] == 0
+    assert len(r["operations"]) == len(OPERATIONS)
+    assert all(not o["reachable"] for o in r["operations"])
+
+
+def test_defensive_rce_present_not_reached_for_engine():
+    from antivirusbolge.rce import analyze_rce
+    r = analyze_rce("malbolge-engine")
+    # Adapter launches the binary (capability present) but no operation reaches it.
+    assert r["classification"] == "HOST_PATH_PRESENT_NOT_REACHED"
+    assert r["host_paths_to_host_primitive"] == 0
+    assert r["adapter_capabilities_present"] == ["HOST_PROCESS_START"]

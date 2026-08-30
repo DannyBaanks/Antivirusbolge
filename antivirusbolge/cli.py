@@ -6,6 +6,7 @@ Commands:
     behavior <specimen.mal>   behavioral signature only
     compare <a.mal> <b.mal>   trace-level comparison ladder
     parity <specimen.mal>     cross-interpreter parity (walbolge vs malbolge-engine)
+    rce <backend>             defensive interpreter-boundary analysis
     interpreter-audit <backend>  host capability boundary map
     verify <report.json>      re-print a stored report's verdict summary
 """
@@ -62,6 +63,10 @@ def main(argv=None) -> int:
     p_audit = sub.add_parser("interpreter-audit", help="Host capability boundary map")
     p_audit.add_argument("backend")
     p_audit.set_defaults(handler="audit")
+
+    p_rce = sub.add_parser("rce", help="Defensive interpreter-boundary analysis")
+    p_rce.add_argument("backend")
+    p_rce.set_defaults(handler="rce")
 
     args = parser.parse_args(argv)
     common = {
@@ -133,6 +138,18 @@ def _cmd_audit(args, common) -> int:
     from .interpreter import get_backend
     backend = get_backend(args.backend)
     print(json.dumps(backend.host_map.to_dict(), indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_rce(args, common) -> int:
+    from .rce import analyze_rce
+    print(json.dumps(analyze_rce(args.backend), indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_rce(args, common) -> int:
+    from .rce import analyze_rce
+    print(json.dumps(analyze_rce(args.backend), indent=2, ensure_ascii=False))
     return 0
 
 

@@ -1,6 +1,6 @@
 # ANTIVIRUSBOLGE — Test Matrix (M0 + M1)
 
-Executed 2026-08-29 with `py -m pytest tests/test_avb.py` (10 tests).
+Executed 2026-08-29 with `py -m pytest tests/test_avb.py` (12 tests).
 
 | Test | Specimen | Expected | Result |
 |------|----------|----------|--------|
@@ -14,6 +14,8 @@ Executed 2026-08-29 with `py -m pytest tests/test_avb.py` (10 tests).
 | source hash != behavior signature | hello vs truncated | distinct source + trace hashes | PASS |
 | **cross-interpreter parity (M1)** | `hello_classic.mal` walbolge vs malbolge-engine | `SEMANTIC_PARITY`, DEMONSTRATED, both 48 steps / `Hello, world.` | PASS |
 | **boundary map distinguishes backends (M1)** | backend host_map | walbolge present=[], malbolge-engine present=[HOST_PROCESS_START], reachable/exercised=[] both | PASS |
+| **RCE walbolge (M1)** | rce("walbolge") | `NO_HOST_PATH_FOUND`, 0 host paths, all operations unreachable | PASS |
+| **RCE malbolge-engine (M1)** | rce("malbolge-engine") | `HOST_PATH_PRESENT_NOT_REACHED`, adapter launches binary but 0 specimen-reachable paths | PASS |
 
 ## Cross-interpreter detail
 

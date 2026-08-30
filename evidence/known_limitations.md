@@ -14,12 +14,14 @@
    backend lets a specimen reach or exercise a host capability, so this
    classification stays NOT_DEMONSTRATED (it is implemented, not triggered).
 
-4. **RCE / interpreter-boundary reachability analysis is deferred.** The host
-   path is structurally absent for both backends (present=HOST_PROCESS_START at
-   adapter level only for malbolge-engine; specimen-reachable=[] everywhere), so
-   the honest answer today is `NO_HOST_PATH_FOUND`. A dedicated RCE mode that
-   maps MALBOLGE_OPERATION -> INTERPRETER_HANDLER -> ADAPTER -> HOST_PRIMITIVE
-   is the next milestone.
+4. **RCE / interpreter-boundary reachability analysis is implemented (defensive).**
+   `rce.py` maps each Malbolge operation to its interpreter handler and host
+   primitive by source inspection, and classifies the VM->host path.
+   - walbolge -> `NO_HOST_PATH_FOUND` (no host primitive anywhere).
+   - malbolge-engine -> `HOST_PATH_PRESENT_NOT_REACHED` (the adapter launches the
+     C binary as a process, but no Malbolge operation reaches that seam).
+   It never constructs payloads; existing specimens are only replayed for
+   classification.
 
 5. **Final-state hash is bounded, not exact.** `L5` final-state equality is
    approximated from the bounded trace hash + output hash + halt reason. Walbolge
