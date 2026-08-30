@@ -203,6 +203,54 @@ El `HOST_PROCESS_START` de malbolge-engine es del **harness** (lanza el binario
 C como proceso), no del espécimen. `reachable` y `exercised` vacíos = ningún
 espécimen cruza al host.
 
+### Cross-validation entre intérpretes independientes (M2)
+
+```powershell
+py -m antivirusbolge crossval corpus\benign\hello_classic.mal
+```
+
+Salida real (fragmento):
+
+```
+  "walbolge":        { "status": "OK", "steps": 48, "output_hash": "f8c3bf62..." },
+  "malbolge-engine": { "status": "OK", "steps": 48, "output_hash": "f8c3bf62..." },
+  "oracle":          { "status": "OK", "steps": 48, "output_hash": "f8c3bf62..." },
+  "classification": "SEMANTIC_PARITY"
+```
+
+Tres intérpretes independientes coinciden en 48 pasos y mismo hash de salida.
+
+### Disassembly / debug (M2)
+
+```powershell
+py -m antivirusbolge disasm corpus\benign\quijote_ch001.mal --limit 3
+```
+
+Salida real:
+
+```
+decoded 2730 cells (first 3):
+  [   0] char='b' opcode=i
+  [   1] char='C' opcode=o
+  [   2] char='B' opcode=o
+```
+
+### Generación + roundtrip en 3 intérpretes (M2)
+
+```powershell
+py -m antivirusbolge roundtrip corpus\generated\gen_NO.mal --expect NO
+```
+
+Salida real (fragmento):
+
+```
+  "verdict": "ROUNDTRIP_PASS",
+  "backends_matching": ["walbolge", "malbolge-engine", "oracle"]
+```
+
+La generación **nunca se auto-valida**: el espécimen debe reproducir el texto en
+intérpretes independientes.
+
 ## 5. Cómo leer la salida
 
 | Veredicto | Qué significa | Qué hacer |

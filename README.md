@@ -34,6 +34,16 @@ this machine.
 | Command | Purpose |
 |---------|---------|
 | `scan <specimen>` | full scan + verdict + receipt |
+| `run <specimen> [--backend B]` | execute on one backend -> canonical IR |
+| `crossval <specimen>` | execute on all independent backends + compare |
+| `backends` | list invocable backends |
+| `capabilities` | prior-art capability matrix summary |
+| `disasm <specimen>` | decode each cell -> opcode |
+| `state <specimen> --step N` | VM state (a/c/d) at a step |
+| `debug <specimen> [--bp-pc N] [--wp-cell N]` | run with breakpoints/watchpoints |
+| `generate "<text>" [--out F]` | synthesize a classic specimen (meowbolge) |
+| `roundtrip <specimen> --expect <text>` | verify on independent backends |
+| `corpus <dir> --phrases "A;B"` | generate+verify a small corpus |
 | `trace <specimen> [--limit N]` | first N trace events |
 | `behavior <specimen>` | behavioral signature (source hash != trace hash) |
 | `compare <a> <b>` | L0..L5 trace-level comparison ladder |
@@ -56,18 +66,33 @@ a `SECURITY_CLASS` (`OUTPUT_ONLY`, `PURE_VM_COMPUTE`, `INVALID_PROGRAM`,
 - **Malbolge-Engine** (C) — independent interpreter via JSONL IPC (output/steps/
   status). The harness spawns the binary as a process (declared
   `HOST_PROCESS_START` present), but no specimen can reach or exercise it.
+- **malbolge-oracle** (Python) — independent reference VM exposing final
+  state a/c/d and the full 59049-cell memory.
 
-`parity` runs the same specimen on both and classifies parity/divergence.
-`hello_classic.mal` demonstrates `SEMANTIC_PARITY` (both 48 steps, `Hello, world.`).
+`parity` and `crossval` run the same specimen on independent backends and
+classify parity/divergence. `hello_classic.mal` demonstrates `SEMANTIC_PARITY`
+across all three (48 steps, `Hello, world.`).
+
+## M2: workbench
+
+M2 turned Antivirusbolge into a full-spectrum workbench over the independent
+Malbolge VMs: canonical IR (`run`), cross-validation (`crossval`), debugger/RE
+(`disasm`/`state`/`debug`), and a generation+roundtrip pipeline (`generate`/
+`roundtrip`/`corpus`). See `evidence/CLAIM_GATE.md` for the honest verdict:
+the core is demonstrated; full-text **synthesis** is NOT_DEMONSTRATED (the
+compact generator fork is absent; the wired generator only covers easy
+transitions).
 
 ## Structure
 
 ```
 antivirusbolge/     core package (normalizer, interpreter, effects, classify,
-                    invariants, receipt, analyzer, compare, parity, report, cli)
-corpus/             benign | malformed | stress | interpreter_boundary
-evidence/           threat_model, architecture, invariants, manifests, receipts
-tests/              test_avb.py (10 tests)
+                    invariants, receipt, analyzer, compare, parity, rce, ir,
+                    workbench, debug, synthesis, report, cli)
+corpus/             benign | malformed | stress | interpreter_boundary | generated | source
+evidence/           threat_model, architecture, invariants, manifests, matrix,
+                    tool discovery, claim gate, receipts
+tests/              test_avb.py (20 tests)
 ```
 
 The analyzer consumes **Walbolge** (the Malbolge->text decompiler) through an

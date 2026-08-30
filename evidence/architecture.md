@@ -27,8 +27,20 @@ specimen.mal
 | `compare.py` | L0..L5 trace-level comparison ladder + OUTPUT_EQUAL_TRACE_DIFFERENT. |
 | `parity.py` | cross-interpreter parity: same specimen on Walbolge (classic) vs Malbolge-Engine (C) -> SEMANTIC_PARITY / OUTPUT_DIVERGENCE / TRACE_DIVERGENCE / CRASH_ONLY_ONE_BACKEND / HOST_EFFECT_ONLY_ONE_BACKEND. |
 | `rce.py` | defensive interpreter-boundary analysis: per-operation MALBOLGE_OPERATION -> INTERPRETER_HANDLER -> HOST_PRIMITIVE reachability map; classification NO_HOST_PATH_FOUND / HOST_PATH_PRESENT_NOT_REACHED / HOST_PATH_REACHED / HOST_EFFECT_OBSERVED / INCONCLUSIVE. Never constructs payloads. |
+| `ir.py` | canonical analysis IR: AnalysisEvent / AnalysisResult. Adapters translate external results here; never invents fields a provider cannot show. |
+| `workbench.py` | run() (one backend -> IR) + crossval() (all independent backends -> SEMANTIC_PARITY / DIVERGENCE / OBSERVATION_MODEL_DIFFERENCE / INCONCLUSIVE). |
+| `debug.py` | debugger/RE over the Walbolge per-event trace: disassemble, step/rewind, breakpoints (pc/step), watchpoints (cell writes), state a/c/d, executed/written-region recovery, control flow. |
+| `synthesis.py` | generate (meowbolge adapter) + roundtrip (verify on independent backends, never self-validated) + corpus_from_phrases. Coverage bounded by generator; full-text synthesis NOT_DEMONSTRATED. |
 | `report.py` | renders .md and .json. |
-| `cli.py` | commands: scan, trace, behavior, compare, parity, interpreter-audit, verify. |
+| `cli.py` | commands: scan, run, crossval, backends, capabilities, disasm, state, debug, generate, roundtrip, corpus, trace, behavior, compare, parity, rce, interpreter-audit, verify. |
+
+## Security superset (capability != authority)
+
+Debugger/RE/differential/generation tools *observe or produce*; they do not
+acquire security authority. The verdict always originates in the security core:
+ORIGIN / STATUS / SECURITY_CLASS / SEVERITY / HOST_REACHABILITY / HOST_EFFECT.
+A RE finding is evidence into the pipeline; it never by itself becomes a
+verdict.
 
 ## Canonical effect IR
 
