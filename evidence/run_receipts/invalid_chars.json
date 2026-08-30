@@ -1,0 +1,281 @@
+{
+  "specimen_path": "corpus\\malformed\\invalid_chars.mal",
+  "static": {
+    "source_chars": 21,
+    "opcode_count": 0,
+    "valid_cells": 0,
+    "malformed_cells": 21,
+    "non_opcode_positions": [
+      {
+        "index": 0,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 1,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 2,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 3,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 4,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 5,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 6,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 7,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 8,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 9,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 10,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 11,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 12,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 13,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 14,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 15,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 16,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 17,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 18,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 19,
+        "char": ")",
+        "opcode": null
+      },
+      {
+        "index": 20,
+        "char": ")",
+        "opcode": null
+      }
+    ],
+    "bootstrap": null,
+    "sha256": "26beb9ec2ea27227cfd8c689e76dce474e1994ca11824d388f75c97078b053c5",
+    "first_invalid_chars": [
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")",
+      ")"
+    ]
+  },
+  "outcome": {
+    "steps": 0,
+    "halted": false,
+    "halt_reason": "invalid_program",
+    "output": "",
+    "peak_memory": 0,
+    "events": [],
+    "events_dropped": false,
+    "executed_positions": [],
+    "jumps_count": 0,
+    "error": null
+  },
+  "canonical": {
+    "vm_effects": {},
+    "host_effects": {},
+    "sequence": [],
+    "event_effect_count": 0
+  },
+  "signature": {
+    "trace_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "effect_count": 0,
+    "effect_multiset": {},
+    "output_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "halt_reason": "invalid_program",
+    "events_bounded": false
+  },
+  "host_map": {
+    "backend": "walbolge",
+    "capabilities_present": [],
+    "capabilities_reachable": [],
+    "capabilities_exercised": [],
+    "boundary_violations": 0
+  },
+  "verdict": {
+    "security_class": "INVALID_PROGRAM",
+    "origin": "SPECIMEN_BEHAVIOR",
+    "status": "DEMONSTRATED",
+    "severity": "LOW",
+    "note": "no valid executable cells; malformed input"
+  },
+  "budget": {
+    "exceeded": false,
+    "reason": null
+  },
+  "limits": {
+    "max_steps": 5000000,
+    "max_output_bytes": 262144,
+    "max_wall_time_s": 60.0
+  },
+  "invariants": [
+    {
+      "invariant": "INV-001",
+      "pass": true,
+      "rule": "Malbolge VM state mutations remain inside VM-owned memory.",
+      "note": "VM writes bounded to VM tape (Walbolge backend, no host writes)."
+    },
+    {
+      "invariant": "INV-002",
+      "pass": true,
+      "rule": "No host process execution is allowed unless an explicit adapter declares and authorizes it.",
+      "note": "no host process effect observed."
+    },
+    {
+      "invariant": "INV-003",
+      "pass": true,
+      "rule": "No host filesystem effect is allowed unless explicitly declared.",
+      "note": "no host filesystem effect observed."
+    },
+    {
+      "invariant": "INV-004",
+      "pass": true,
+      "rule": "No network effect is allowed unless explicitly declared.",
+      "note": "no network effect observed."
+    },
+    {
+      "invariant": "INV-005",
+      "pass": true,
+      "rule": "Unknown external effect => DENY / INCONCLUSIVE.",
+      "note": "no unknown external effect; DENY/INCONCLUSIVE would apply otherwise."
+    },
+    {
+      "invariant": "INV-006",
+      "pass": true,
+      "rule": "Interpreter crash != specimen compromise.",
+      "note": "crash isolated as INVALID_PROGRAM."
+    },
+    {
+      "invariant": "INV-007",
+      "pass": true,
+      "rule": "Resource exhaustion must be reported separately.",
+      "note": "resource use reported separately (steps=0, peak_mem=0)."
+    },
+    {
+      "invariant": "INV-008",
+      "pass": true,
+      "rule": "Execution budget exceeded != safe.",
+      "note": "within budget."
+    },
+    {
+      "invariant": "INV-009",
+      "pass": true,
+      "rule": "CAPABILITY_PRESENT != CAPABILITY_EXERCISED.",
+      "note": "present=[] exercised=[] kept distinct."
+    },
+    {
+      "invariant": "INV-010",
+      "pass": true,
+      "rule": "technically_possible != authorized.",
+      "note": "capability presence is not treated as authorization."
+    }
+  ],
+  "receipt": {
+    "schema": "antivirusbolge.receipt.v1",
+    "timestamp": "2026-08-30T02:53:35.316660+00:00",
+    "specimen_path": "corpus\\malformed\\invalid_chars.mal",
+    "specimen_sha256": "26beb9ec2ea27227cfd8c689e76dce474e1994ca11824d388f75c97078b053c5",
+    "interpreter_name": "walbolge",
+    "interpreter_version": "0.1.0",
+    "interpreter_sha256": null,
+    "steps": 0,
+    "halt_reason": "invalid_program",
+    "vm_effects": [],
+    "host_effects": [],
+    "capabilities_present": [],
+    "capabilities_exercised": [],
+    "budget_exceeded": false,
+    "limits": {
+      "max_steps": 5000000,
+      "max_output_bytes": 262144,
+      "max_wall_time_s": 60.0
+    },
+    "classification": "INVALID_PROGRAM",
+    "status": "DEMONSTRATED",
+    "not_demonstrated": [
+      "behavior beyond static inspection"
+    ]
+  },
+  "not_demonstrated": [
+    "behavior beyond static inspection"
+  ]
+}

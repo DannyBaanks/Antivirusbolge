@@ -1,0 +1,25 @@
+{
+  "schema": "antivirusbolge.interpreter_manifest.v1",
+  "backends": [
+    {
+      "name": "walbolge",
+      "version": "0.1.0",
+      "language": "Python",
+      "host_os": "win32",
+      "arch": "amd64",
+      "capabilities_present": [],
+      "capabilities_reachable": [],
+      "capabilities_exercised": [],
+      "boundary_violations": 0,
+      "notes": "walbolge.trace/tables/decoder/decompiler use no subprocess, socket, ctypes, cffi, mmap, eval or exec of specimen content; only specimen-file reads and report writes. Host-effect seam structurally absent.",
+      "seam": "antivirusbolge.interpreter.WalbolgeBackend -> walbolge.trace.trace_program"
+    },
+    {
+      "name": "malbolge-engine",
+      "version": "(M1 not wired)",
+      "language": "C",
+      "status": "NOT_DEMONSTRATED",
+      "notes": "Independent C interpreter (vm.c/malbolge.c) available at C:\\Development\\ISyCo Git\\Malbolge-Engine; parity harness is M1. Walbolge classic trace already cross-checked against it for hello.malbolge (both 48 steps)."
+    }
+  ]
+}

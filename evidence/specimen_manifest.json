@@ -1,0 +1,36 @@
+{
+  "schema": "antivirusbolge.specimen_manifest.v1",
+  "generated_utc": "2026-08-30T02:57:53.423656+00:00",
+  "specimens": {
+    "benign\\hello_classic.mal": {
+      "sha256": "c8a95363dbe2e997192834cf42a6f317be4a3bef93263e026300bc8243e77601",
+      "size": 89,
+      "class": "benign"
+    },
+    "benign\\quijote_ch001.mal": {
+      "sha256": "bfaa91e096e2fba39734607f1109688356da46bb03bb731f97b164edf7794ac3",
+      "size": 2730,
+      "class": "benign"
+    },
+    "interpreter_boundary\\probe_high_activity.mal": {
+      "sha256": "bfaa91e096e2fba39734607f1109688356da46bb03bb731f97b164edf7794ac3",
+      "size": 2730,
+      "class": "interpreter_boundary"
+    },
+    "malformed\\invalid_chars.mal": {
+      "sha256": "26beb9ec2ea27227cfd8c689e76dce474e1994ca11824d388f75c97078b053c5",
+      "size": 21,
+      "class": "malformed"
+    },
+    "malformed\\truncated.mal": {
+      "sha256": "8379470c6a579ffd1f8cbbd74202d7c456820304b68c76cc944b2fff5bec78b1",
+      "size": 30,
+      "class": "malformed"
+    },
+    "stress\\runaway.mal": {
+      "sha256": "d45ac34ae17521ca62b7b74a44662a386d6d971a84327c5419bd4e3998f60011",
+      "size": 248,
+      "class": "stress"
+    }
+  }
+}

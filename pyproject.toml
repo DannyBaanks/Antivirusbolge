@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "antivirusbolge"
+version = "0.1.0"
+description = "ANTIVIRUSBOLGE — defensive behavioral security analyzer for Malbolge"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+antivirusbolge = "antivirusbolge.cli:main"
+
+[tool.setuptools]
+packages = ["antivirusbolge"]

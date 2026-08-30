@@ -1,0 +1,1418 @@
+{
+  "specimen_path": "corpus\\stress\\runaway.mal",
+  "static": {
+    "source_chars": 248,
+    "opcode_count": 21,
+    "valid_cells": 21,
+    "malformed_cells": 227,
+    "non_opcode_positions": [
+      {
+        "index": 0,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 1,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 2,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 3,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 4,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 5,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 7,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 8,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 9,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 10,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 11,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 12,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 13,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 14,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 15,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 16,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 17,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 18,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 19,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 20,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 21,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 24,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 25,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 26,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 27,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 28,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 29,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 30,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 31,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 32,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 33,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 34,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 35,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 36,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 37,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 38,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 39,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 40,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 41,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 42,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 43,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 44,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 46,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 47,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 48,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 49,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 50,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 52,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 53,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 54,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 55,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 56,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 57,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 58,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 59,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 60,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 61,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 62,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 63,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 65,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 66,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 67,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 68,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 69,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 70,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 71,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 72,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 73,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 74,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 75,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 76,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 77,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 78,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 79,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 80,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 83,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 84,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 85,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 86,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 87,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 88,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 89,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 90,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 91,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 92,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 93,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 94,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 95,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 96,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 97,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 98,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 99,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 101,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 102,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 103,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 104,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 105,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 106,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 107,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 108,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 109,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 110,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 111,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 112,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 113,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 114,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 115,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 118,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 119,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 120,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 121,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 122,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 123,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 124,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 125,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 126,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 127,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 128,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 129,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 130,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 131,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 132,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 133,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 134,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 135,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 136,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 137,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 138,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 140,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 141,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 142,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 143,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 144,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 146,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 147,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 148,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 149,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 150,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 151,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 152,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 153,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 154,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 155,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 156,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 157,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 159,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 160,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 161,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 162,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 163,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 164,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 165,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 166,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 167,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 168,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 169,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 170,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 171,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 172,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 173,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 174,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 177,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 178,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 179,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 180,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 181,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 182,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 183,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 184,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 185,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 186,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 187,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 188,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 189,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 190,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 191,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 192,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 193,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 195,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 196,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 197,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 198,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 199,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 200,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 201,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 202,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 203,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 204,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 205,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 206,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 207,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 208,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 209,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 212,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 213,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 214,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 215,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 216,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 217,
+        "char": "o",
+        "opcode": null
+      },
+      {
+        "index": 218,
+        "char": "o",
+        "opcode": null
+      }
+    ],
+    "bootstrap": null,
+    "sha256": "d45ac34ae17521ca62b7b74a44662a386d6d971a84327c5419bd4e3998f60011",
+    "first_invalid_chars": [
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o",
+      "o"
+    ]
+  },
+  "outcome": {
+    "steps": 10,
+    "halted": true,
+    "halt_reason": "max_steps",
+    "output": "",
+    "peak_memory": 59049,
+    "events": [
+      {
+        "step": 0,
+        "c": 0,
+        "d": 0,
+        "a_before": 0,
+        "instruction": "z",
+        "tape_d": 111,
+        "event_type": "execute",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 0,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      },
+      {
+        "step": 1,
+        "c": 1,
+        "d": 1,
+        "a_before": 0,
+        "instruction": "f",
+        "tape_d": 111,
+        "event_type": "execute",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 1,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      },
+      {
+        "step": 2,
+        "c": 2,
+        "d": 2,
+        "a_before": 0,
+        "instruction": "$",
+        "tape_d": 111,
+        "event_type": "execute",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 2,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      },
+      {
+        "step": 3,
+        "c": 3,
+        "d": 3,
+        "a_before": 0,
+        "instruction": "!",
+        "tape_d": 111,
+        "event_type": "execute",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 3,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      },
+      {
+        "step": 4,
+        "c": 4,
+        "d": 4,
+        "a_before": 0,
+        "instruction": "B",
+        "tape_d": 111,
+        "event_type": "execute",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 4,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      },
+      {
+        "step": 5,
+        "c": 5,
+        "d": 5,
+        "a_before": 0,
+        "instruction": "S",
+        "tape_d": 111,
+        "event_type": "execute",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 5,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      },
+      {
+        "step": 6,
+        "c": 6,
+        "d": 6,
+        "a_before": 0,
+        "instruction": "/",
+        "tape_d": 111,
+        "event_type": "input",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 6,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      },
+      {
+        "step": 7,
+        "c": 7,
+        "d": 7,
+        "a_before": 0,
+        "instruction": "|",
+        "tape_d": 111,
+        "event_type": "execute",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 7,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      },
+      {
+        "step": 8,
+        "c": 8,
+        "d": 8,
+        "a_before": 0,
+        "instruction": "t",
+        "tape_d": 111,
+        "event_type": "execute",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 8,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      },
+      {
+        "step": 9,
+        "c": 9,
+        "d": 9,
+        "a_before": 0,
+        "instruction": ":",
+        "tape_d": 111,
+        "event_type": "execute",
+        "output_char": null,
+        "jump_target": null,
+        "write_c": 9,
+        "write_d": null,
+        "a_after": 0,
+        "cell_before": 111,
+        "cell_after": 120
+      }
+    ],
+    "events_dropped": false,
+    "executed_positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "jumps_count": 0,
+    "error": null,
+    "wall_time_s": 0.141
+  },
+  "canonical": {
+    "vm_effects": {
+      "STEP": 9,
+      "VM_READ": 9,
+      "VM_WRITE": 10,
+      "INPUT": 1
+    },
+    "host_effects": {},
+    "sequence": [
+      "STEP",
+      "VM_READ",
+      "STEP",
+      "VM_READ",
+      "STEP",
+      "VM_READ",
+      "STEP",
+      "VM_READ",
+      "STEP",
+      "VM_READ",
+      "STEP",
+      "VM_READ",
+      "INPUT",
+      "STEP",
+      "VM_READ",
+      "STEP",
+      "VM_READ",
+      "STEP",
+      "VM_READ"
+    ],
+    "event_effect_count": 29
+  },
+  "signature": {
+    "trace_hash": "35db6780e65c1dc9267d63c9efa68f45e96bb2647ef59ebe1853a4fdc5cdbc7c",
+    "effect_count": 29,
+    "effect_multiset": {
+      "STEP": 9,
+      "VM_READ": 9,
+      "VM_WRITE": 10,
+      "INPUT": 1
+    },
+    "output_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "halt_reason": "max_steps",
+    "events_bounded": false
+  },
+  "host_map": {
+    "backend": "walbolge",
+    "capabilities_present": [],
+    "capabilities_reachable": [],
+    "capabilities_exercised": [],
+    "boundary_violations": 0
+  },
+  "verdict": {
+    "security_class": "NONTERMINATING_WITHIN_BUDGET",
+    "origin": "SPECIMEN_BEHAVIOR",
+    "status": "INCONCLUSIVE",
+    "severity": "LOW",
+    "note": "execution exceeded budget; not classified safe (INV-008)"
+  },
+  "budget": {
+    "exceeded": true,
+    "reason": "max_steps",
+    "wall_time_s": 0.141
+  },
+  "limits": {
+    "max_steps": 10,
+    "max_output_bytes": 262144,
+    "max_wall_time_s": 60.0
+  },
+  "invariants": [
+    {
+      "invariant": "INV-001",
+      "pass": true,
+      "rule": "Malbolge VM state mutations remain inside VM-owned memory.",
+      "note": "VM writes bounded to VM tape (Walbolge backend, no host writes)."
+    },
+    {
+      "invariant": "INV-002",
+      "pass": true,
+      "rule": "No host process execution is allowed unless an explicit adapter declares and authorizes it.",
+      "note": "no host process effect observed."
+    },
+    {
+      "invariant": "INV-003",
+      "pass": true,
+      "rule": "No host filesystem effect is allowed unless explicitly declared.",
+      "note": "no host filesystem effect observed."
+    },
+    {
+      "invariant": "INV-004",
+      "pass": true,
+      "rule": "No network effect is allowed unless explicitly declared.",
+      "note": "no network effect observed."
+    },
+    {
+      "invariant": "INV-005",
+      "pass": true,
+      "rule": "Unknown external effect => DENY / INCONCLUSIVE.",
+      "note": "no unknown external effect; DENY/INCONCLUSIVE would apply otherwise."
+    },
+    {
+      "invariant": "INV-006",
+      "pass": true,
+      "rule": "Interpreter crash != specimen compromise.",
+      "note": "crash isolated as NONTERMINATING_WITHIN_BUDGET."
+    },
+    {
+      "invariant": "INV-007",
+      "pass": true,
+      "rule": "Resource exhaustion must be reported separately.",
+      "note": "resource use reported separately (steps=10, peak_mem=59049)."
+    },
+    {
+      "invariant": "INV-008",
+      "pass": false,
+      "rule": "Execution budget exceeded != safe.",
+      "note": "budget exceeded; NOT classified safe (INCONCLUSIVE)."
+    },
+    {
+      "invariant": "INV-009",
+      "pass": true,
+      "rule": "CAPABILITY_PRESENT != CAPABILITY_EXERCISED.",
+      "note": "present=[] exercised=[] kept distinct."
+    },
+    {
+      "invariant": "INV-010",
+      "pass": true,
+      "rule": "technically_possible != authorized.",
+      "note": "capability presence is not treated as authorization."
+    }
+  ],
+  "receipt": {
+    "schema": "antivirusbolge.receipt.v1",
+    "timestamp": "2026-08-30T02:53:35.677404+00:00",
+    "specimen_path": "corpus\\stress\\runaway.mal",
+    "specimen_sha256": "d45ac34ae17521ca62b7b74a44662a386d6d971a84327c5419bd4e3998f60011",
+    "interpreter_name": "walbolge",
+    "interpreter_version": "0.1.0",
+    "interpreter_sha256": null,
+    "steps": 10,
+    "halt_reason": "max_steps",
+    "vm_effects": [
+      "STEP",
+      "VM_READ",
+      "VM_WRITE",
+      "INPUT"
+    ],
+    "host_effects": [],
+    "capabilities_present": [],
+    "capabilities_exercised": [],
+    "budget_exceeded": true,
+    "limits": {
+      "max_steps": 10,
+      "max_output_bytes": 262144,
+      "max_wall_time_s": 60.0
+    },
+    "classification": "NONTERMINATING_WITHIN_BUDGET",
+    "status": "INCONCLUSIVE",
+    "not_demonstrated": [
+      "behavior beyond step budget",
+      "behavior on other interpreters",
+      "universal harmlessness"
+    ]
+  },
+  "not_demonstrated": [
+    "behavior beyond step budget",
+    "behavior on other interpreters",
+    "universal harmlessness"
+  ]
+}
