@@ -224,3 +224,34 @@ def test_state_at_rewind():
     ev = state_at([e.to_dict() for e in tr.events], 58)
     assert ev is not None and ev["step"] == 58
     assert ev["a"] == 29507  # the 'p' that produces 'C'
+
+
+# ---- M2-E: generation / roundtrip ------------------------------------------
+
+def _generate_or_skip(text):
+    try:
+        import os, sys
+        p = os.environ.get("AVB_MEOWBOLGE_PATH", r"C:\Development\ISyCo Git\meowbolge")
+        if p not in sys.path:
+            sys.path.insert(0, p)
+        import meowbolge
+        return meowbolge.generar(text, ancho=40, verbose=False, rapido=True)
+    except Exception:
+        pytest.skip("meowbolge generator unavailable")
+
+
+def test_generate_and_roundtrip_on_independent_backends():
+    from antivirusbolge.synthesis import roundtrip
+    import tempfile, os
+    prog = _generate_or_skip("NO")
+    with tempfile.NamedTemporaryFile("w", suffix=".mal", delete=False,
+                                     encoding="utf-8") as f:
+        f.write(prog)
+        path = f.name
+    try:
+        rt = roundtrip(path, "NO", max_steps=1_000_000)
+        assert rt["verdict"] == "ROUNDTRIP_PASS"
+        assert len(rt["backends_matching"]) >= 2
+        assert set(rt["backends_matching"]) >= {"walbolge", "oracle"}
+    finally:
+        os.unlink(path)

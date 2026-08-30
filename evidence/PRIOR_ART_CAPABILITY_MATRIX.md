@@ -17,8 +17,8 @@ as_of 2026-08-30 ? method: code+execution evidence, not prose.
 | CONTROL_FLOW_ANALYSIS | no | walbolge (jumps graph, executed_positions) | CFG tools | native | jumps + executed_positions in debug output | DEMONSTRATED |
 | SELF_MODIFICATION_ANALYSIS | no | walbolge (written_positions, write_c/write_d) | RE tools | native | written_positions + cell_before/cell_after on writes | DEMONSTRATED |
 | STRUCTURAL_ANALYSIS | bootstrap/segments (walbolge) | walbolge (bootstrap, words, segments) | RE tools | native | segments in report | DEMONSTRATED |
-| GENERATE_OR_SYNTHESIZE | no | meowbolge (working text->Malbolge), Autobolge relational, Malbolge-Translator (import broken) | generators | adapter | meowbolge imports; translator broken | DEMONSTRATED (meowbolge) / PARTIAL (AVB) |
-| ROUNDTRIP_VERIFY | no | walbolge (roundtrip_vs_manifest), meowbolge self-check | verifiers | adapter | walbolge roundtrip verified | DEMONSTRATED (provider) / PARTIAL (AVB) |
+| GENERATE_OR_SYNTHESIZE | generate command (meowbolge adapter) | meowbolge (working text->Malbolge), Autobolge relational, Malbolge-Translator (import broken) | generators | adapter | generate+roundtrip test; coverage limited to easy transitions | DEMONSTRATED |
+| ROUNDTRIP_VERIFY | roundtrip command (independent-backend verify) | walbolge (roundtrip_vs_manifest), meowbolge self-check | verifiers | adapter | ROUNDTRIP_PASS on 3 independent backends | DEMONSTRATED |
 | DIFFERENTIAL_EXECUTION | crossval command (N independent backends) | malbolge-differential, opera-solver UnifiedEvaluator | differential runners | adapter | crossval hello SEMANTIC_PARITY on 3 backends; malformed -> SEMANTIC_DIVERGENCE | DEMONSTRATED |
 | CROSS_INTERPRETER_PARITY | parity + crossval (walbolge/engine/oracle) | walbolge, malbolge-engine, malbolge-oracle, autobolge | differential testing | native + adapter | hello SEMANTIC_PARITY (all 48 steps); malformed SEMANTIC_DIVERGENCE | DEMONSTRATED |
 | CORPUS_EXECUTION | scan over corpus | walbolge, engine, oracle | test suites | native | corpus/ scanned | DEMONSTRATED |

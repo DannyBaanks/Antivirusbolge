@@ -9,6 +9,9 @@ Commands:
     disasm <specimen.mal>     decode each cell -> opcode
     state <specimen.mal> --step N   state (a/c/d) at a step
     debug <specimen.mal>      run with breakpoints/watchpoints
+    generate "<text>" [--out FILE]  synthesize a classic specimen (meowbolge)
+    roundtrip <specimen.mal> --expect <text>  verify on independent backends
+    corpus <out-dir> --phrases "A;B;C"   generate+verify a small corpus
     trace  <specimen.mal>     trace excerpt (first N events)
     behavior <specimen.mal>   behavioral signature only
     compare <a.mal> <b.mal>   trace-level comparison ladder
@@ -106,6 +109,21 @@ def main(argv=None) -> int:
     p_debug.add_argument("--bp-step", type=int, action="append", default=None)
     p_debug.add_argument("--wp-cell", type=int, action="append", default=None)
     p_debug.set_defaults(handler="debug")
+
+    p_gen = sub.add_parser("generate", help="Synthesize a classic Malbolge specimen")
+    p_gen.add_argument("text")
+    p_gen.add_argument("--out")
+    p_gen.set_defaults(handler="generate")
+
+    p_rt = sub.add_parser("roundtrip", help="Verify a specimen reproduces text on independent backends")
+    p_rt.add_argument("specimen")
+    p_rt.add_argument("--expect", required=True)
+    p_rt.set_defaults(handler="roundtrip")
+
+    p_corp = sub.add_parser("corpus", help="Generate+verify a small corpus from phrases")
+    p_corp.add_argument("out_dir")
+    p_corp.add_argument("--phrases", required=True, help="semicolon-separated phrases")
+    p_corp.set_defaults(handler="corpus")
 
     args = parser.parse_args(argv)
     common = {
@@ -251,6 +269,28 @@ def _cmd_debug(args, common) -> int:
                   breakpoints_step=args.bp_step, watchpoints_cell=args.wp_cell,
                   max_steps=args.max_steps)
     print(json.dumps(r, indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_generate(args, common) -> int:
+    from .synthesis import generate
+    prog = generate(args.text, out_path=args.out)
+    print(f"generated {len(prog)} chars" + (f" -> {args.out}" if args.out else ""))
+    return 0
+
+
+def _cmd_roundtrip(args, common) -> int:
+    from .synthesis import roundtrip
+    print(json.dumps(roundtrip(args.specimen, args.expect, max_steps=args.max_steps),
+                     indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_corpus(args, common) -> int:
+    from .synthesis import corpus_from_phrases
+    phrases = [p for p in args.phrases.split(";") if p.strip()]
+    entries = corpus_from_phrases(phrases, args.out_dir, max_steps=args.max_steps)
+    print(json.dumps(entries, indent=2, ensure_ascii=False))
     return 0
 
 

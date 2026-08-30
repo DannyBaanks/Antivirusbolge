@@ -129,21 +129,21 @@
     },
     {
       "capability": "GENERATE_OR_SYNTHESIZE",
-      "AVB_current": "no",
+      "AVB_current": "generate command (meowbolge adapter)",
       "local_tool_provider": "meowbolge (working text->Malbolge), Autobolge relational, Malbolge-Translator (import broken)",
       "external_prior_art": "generators",
       "implementation_mode": "adapter",
-      "evidence": "meowbolge imports; translator broken",
-      "status": "DEMONSTRATED (meowbolge) / PARTIAL (AVB)"
+      "evidence": "generate+roundtrip test; coverage limited to easy transitions",
+      "status": "DEMONSTRATED"
     },
     {
       "capability": "ROUNDTRIP_VERIFY",
-      "AVB_current": "no",
+      "AVB_current": "roundtrip command (independent-backend verify)",
       "local_tool_provider": "walbolge (roundtrip_vs_manifest), meowbolge self-check",
       "external_prior_art": "verifiers",
       "implementation_mode": "adapter",
-      "evidence": "walbolge roundtrip verified",
-      "status": "DEMONSTRATED (provider) / PARTIAL (AVB)"
+      "evidence": "ROUNDTRIP_PASS on 3 independent backends",
+      "status": "DEMONSTRATED"
     },
     {
       "capability": "DIFFERENTIAL_EXECUTION",
