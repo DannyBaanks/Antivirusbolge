@@ -16,10 +16,17 @@
     },
     {
       "name": "malbolge-engine",
-      "version": "(M1 not wired)",
+      "version": "0.1.0",
       "language": "C",
-      "status": "NOT_DEMONSTRATED",
-      "notes": "Independent C interpreter (vm.c/malbolge.c) available at C:\\Development\\ISyCo Git\\Malbolge-Engine; parity harness is M1. Walbolge classic trace already cross-checked against it for hello.malbolge (both 48 steps)."
+      "host_os": "win32",
+      "arch": "amd64",
+      "capabilities_present": ["HOST_PROCESS_START"],
+      "capabilities_reachable": [],
+      "capabilities_exercised": [],
+      "boundary_violations": 0,
+      "notes": "The C VM (vm.c/malbolge.c) exposes no host operation to the specimen. The *harness* launches malbolge-ipc.exe as a host process (declared HOST_PROCESS_START present), but no specimen can reach or exercise it. Cross-interpreter parity harness wired (M1).",
+      "seam": "antivirusbolge.interpreter.MalbolgeEngineBackend -> malbolge-ipc.exe (subprocess) -> vm_run",
+      "status": "DEMONSTRATED"
     }
   ]
 }

@@ -164,6 +164,45 @@ Salida real (fragmento):
   "halt_reason": "halt_opcode",
 ```
 
+### Paridad entre intérpretes (M1)
+
+Compara el mismo espécimen en Walbolge (clásico) y en Malbolge-Engine (C):
+
+```powershell
+py -m antivirusbolge parity corpus\benign\hello_classic.mal
+```
+
+Salida real:
+
+```
+  "backend_a": { "name": "walbolge", "steps": 48, "halt": "halt_opcode", ... },
+  "backend_b": { "name": "malbolge-engine", "steps": 48, "halt": "halt_opcode", ... },
+  "output_match": true,
+  "halt_match": true,
+  "classification": "SEMANTIC_PARITY",
+  "status": "DEMONSTRATED"
+```
+
+### Boundary map por intérprete (M1)
+
+```powershell
+py -m antivirusbolge interpreter-audit walbolge
+py -m antivirusbolge interpreter-audit malbolge-engine
+```
+
+Salida real (fragmentos):
+
+```
+walbolge:        "capabilities_present": []
+malbolge-engine: "capabilities_present": ["HOST_PROCESS_START"]
+                 "capabilities_reachable": []
+                 "capabilities_exercised": []
+```
+
+El `HOST_PROCESS_START` de malbolge-engine es del **harness** (lanza el binario
+C como proceso), no del espécimen. `reachable` y `exercised` vacíos = ningún
+espécimen cruza al host.
+
 ## 5. Cómo leer la salida
 
 | Veredicto | Qué significa | Qué hacer |
@@ -193,3 +232,9 @@ no es inocencia.
   viste dentro de un presupuesto.
 - **El corpus del Quijote viene de `Malbolge-Translator`.** Si lo regeneras, el
   SHA-256 de `specimen_manifest.json` deja de cuadrar; vuelve a generarlo.
+- **`parity` y el backend C necesitan el binario.** `malbolge-ipc.exe` debe
+  existir (por defecto en `C:\Development\ISyCo Git\Malbolge-Engine\`). Si no
+  está, ese test se salta; ajusta `AVB_MALBOLGE_ENGINE` para apuntar a otro.
+- **`parity` usa `classic=True` para Walbolge.** Es lo correcto para comparar
+  contra el intérprete clásico C; un programa del Translator (toolkit) no es
+  comparable 1:1 contra Malbolge-Engine.

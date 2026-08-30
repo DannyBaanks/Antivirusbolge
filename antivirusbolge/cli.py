@@ -5,6 +5,8 @@ Commands:
     trace  <specimen.mal>     trace excerpt (first N events)
     behavior <specimen.mal>   behavioral signature only
     compare <a.mal> <b.mal>   trace-level comparison ladder
+    parity <specimen.mal>     cross-interpreter parity (walbolge vs malbolge-engine)
+    interpreter-audit <backend>  host capability boundary map
     verify <report.json>      re-print a stored report's verdict summary
 """
 from __future__ import annotations
@@ -52,6 +54,14 @@ def main(argv=None) -> int:
     p_verify = sub.add_parser("verify", help="Re-print a stored report's verdict")
     p_verify.add_argument("report")
     p_verify.set_defaults(handler="verify")
+
+    p_parity = sub.add_parser("parity", help="Cross-interpreter parity")
+    p_parity.add_argument("specimen")
+    p_parity.set_defaults(handler="parity")
+
+    p_audit = sub.add_parser("interpreter-audit", help="Host capability boundary map")
+    p_audit.add_argument("backend")
+    p_audit.set_defaults(handler="audit")
 
     args = parser.parse_args(argv)
     common = {
@@ -109,6 +119,20 @@ def _cmd_compare(args, common) -> int:
     from .compare import compare
     result = compare(args.a, args.b, **common)
     print(json.dumps(result, indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_parity(args, common) -> int:
+    from .parity import parity
+    print(json.dumps(parity(args.specimen, max_steps=args.max_steps),
+                     indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_audit(args, common) -> int:
+    from .interpreter import get_backend
+    backend = get_backend(args.backend)
+    print(json.dumps(backend.host_map.to_dict(), indent=2, ensure_ascii=False))
     return 0
 
 

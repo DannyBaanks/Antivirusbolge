@@ -1,6 +1,6 @@
-# ANTIVIRUSBOLGE — Test Matrix (M0)
+# ANTIVIRUSBOLGE — Test Matrix (M0 + M1)
 
-Executed 2026-08-29 with `py -m pytest tests/test_avb.py`.
+Executed 2026-08-29 with `py -m pytest tests/test_avb.py` (10 tests).
 
 | Test | Specimen | Expected | Result |
 |------|----------|----------|--------|
@@ -12,19 +12,41 @@ Executed 2026-08-29 with `py -m pytest tests/test_avb.py`.
 | interpreter host-capability fixture | `interpreter_boundary/probe_high_activity.mal` | host capabilities present/exercised = [], all invariants PASS | PASS |
 | same-output different-trace | `truncated.mal` vs `invalid_chars.mal` | `OUTPUT_EQUAL_TRACE_DIFFERENT`, L1 output equal, L4 trace different | PASS |
 | source hash != behavior signature | hello vs truncated | distinct source + trace hashes | PASS |
+| **cross-interpreter parity (M1)** | `hello_classic.mal` walbolge vs malbolge-engine | `SEMANTIC_PARITY`, DEMONSTRATED, both 48 steps / `Hello, world.` | PASS |
+| **boundary map distinguishes backends (M1)** | backend host_map | walbolge present=[], malbolge-engine present=[HOST_PROCESS_START], reachable/exercised=[] both | PASS |
 
-## Cross-interpreter (M1, NOT_DEMONSTRATED)
+## Cross-interpreter detail
 
-Same specimen on Walbolge vs Malbolge-Engine and parity/divergence classification
-is deferred to M1. Only a single manual cross-check is recorded: `hello.malbolge`
-halts in 48 steps on both Walbolge classic trace and Malbolge-Engine (see
-`Malbolge-Engine/README.md` and this repo's `interpreter_manifest.json`).
+`hello_classic.mal` on both backends:
+
+| backend | steps | halt | output_len | output |
+|---------|-------|------|-----------|--------|
+| walbolge (classic) | 48 | halt_opcode | 13 | `Hello, world.` |
+| malbolge-engine (C) | 48 | halt_opcode | 13 | `Hello, world.` |
+
+Classification: `SEMANTIC_PARITY` (output_match=true, halt_match=true).
+
+## Boundary map (M1)
+
+| backend | capabilities_present | reachable | exercised |
+|---------|----------------------|-----------|-----------|
+| walbolge | `[]` | `[]` | `[]` |
+| malbolge-engine | `[HOST_PROCESS_START]` (harness spawns the C binary) | `[]` | `[]` |
+
+Neither backend lets a *specimen* reach or exercise a host capability. The
+presence of `HOST_PROCESS_START` on malbolge-engine is an adapter/harness
+capability (launching the interpreter), not a specimen capability — INV-009
+holds (present != exercised).
 
 ## Controls / negative results
 
-- No specimen produced a host effect; the backend has no host-capability seam.
+- No specimen produced a host effect on either backend; neither backend exposes
+  a specimen-reachable host seam.
 - The `invalid_chars.mal` fixture was corrected twice: `!@#$` and `?` sequences
   actually decode to valid opcodes (Malbolge decode is injective per position);
   `)`*21 is the verified all-invalid corpus entry (see `specimen_manifest.json`).
 - `runaway.mal` halts natively at 65 steps under classic (auto-encrypt makes a
   cell non-printable); budget handling is exercised by cutting at 10 steps.
+- `TRACE_DIVERGENCE` / `HOST_EFFECT_ONLY_ONE_BACKEND` are not reachable on this
+  corpus: the C backend exposes no per-event trace, and no specimen can cross to
+  host on either backend.

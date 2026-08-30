@@ -98,3 +98,35 @@ def test_source_hash_differs_from_behavior_signature():
     # Same behavioral-structure example: probe == quijote source (identical bytes)
     p = scan(str(PROBE))
     assert p["static"]["sha256"] == scan(str(QUIJOTE))["static"]["sha256"]
+
+
+# ---- M1: cross-interpreter parity + boundary map --------------------------
+
+MALBOLGE_ENGINE_EXE = r"C:\Development\ISyCo Git\Malbolge-Engine\malbolge-ipc.exe"
+
+
+def _engine_present() -> bool:
+    return Path(MALBOLGE_ENGINE_EXE).exists()
+
+
+@pytest.mark.skipif(not _engine_present(), reason="Malbolge-Engine binary not present")
+def test_cross_interpreter_semantic_parity():
+    from antivirusbolge.parity import parity
+    result = parity(str(HELLO), max_steps=1_000_000)
+    assert result["classification"] == "SEMANTIC_PARITY"
+    assert result["status"] == "DEMONSTRATED"
+    assert result["steps_a"] == result["steps_b"] == 48
+    assert result["output_match"] is True
+
+
+def test_boundary_map_distinguishes_backends():
+    from antivirusbolge.interpreter import get_backend
+    w = get_backend("walbolge").host_map
+    e = get_backend("malbolge-engine").host_map
+    # The harness spawns the C binary as a process; Walbolge does not.
+    assert w.capabilities_present == []
+    assert e.capabilities_present == ["HOST_PROCESS_START"]
+    # Neither backend lets a *specimen* reach or exercise a host capability.
+    assert w.capabilities_reachable == [] and w.capabilities_exercised == []
+    assert e.capabilities_reachable == [] and e.capabilities_exercised == []
+    assert w.boundary_violations == 0 and e.boundary_violations == 0

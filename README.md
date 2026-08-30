@@ -37,6 +37,8 @@ this machine.
 | `trace <specimen> [--limit N]` | first N trace events |
 | `behavior <specimen>` | behavioral signature (source hash != trace hash) |
 | `compare <a> <b>` | L0..L5 trace-level comparison ladder |
+| `parity <specimen>` | cross-interpreter parity (walbolge vs malbolge-engine) |
+| `interpreter-audit <backend>` | host capability boundary map per backend |
 | `verify <report.json>` | re-print a stored report's verdict |
 
 ## Verdict model
@@ -48,14 +50,24 @@ a `SECURITY_CLASS` (`OUTPUT_ONLY`, `PURE_VM_COMPUTE`, `INVALID_PROGRAM`,
 `NONTERMINATING_WITHIN_BUDGET`, `INTERPRETER_CRASH`, ...) and a conservative
 `SEVERITY`. Budget exceedance yields `INCONCLUSIVE`, never `SAFE`.
 
+## Two backends
+
+- **Walbolge** (pure Python) — full per-event VM trace; host seam absent.
+- **Malbolge-Engine** (C) — independent interpreter via JSONL IPC (output/steps/
+  status). The harness spawns the binary as a process (declared
+  `HOST_PROCESS_START` present), but no specimen can reach or exercise it.
+
+`parity` runs the same specimen on both and classifies parity/divergence.
+`hello_classic.mal` demonstrates `SEMANTIC_PARITY` (both 48 steps, `Hello, world.`).
+
 ## Structure
 
 ```
 antivirusbolge/     core package (normalizer, interpreter, effects, classify,
-                    invariants, receipt, analyzer, compare, report, cli)
+                    invariants, receipt, analyzer, compare, parity, report, cli)
 corpus/             benign | malformed | stress | interpreter_boundary
 evidence/           threat_model, architecture, invariants, manifests, receipts
-tests/              test_avb.py (8 tests)
+tests/              test_avb.py (10 tests)
 ```
 
 The analyzer consumes **Walbolge** (the Malbolge->text decompiler) through an

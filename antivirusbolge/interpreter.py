@@ -47,6 +47,7 @@ class HostCapabilityMap:
     capabilities_reachable: List[str]
     capabilities_exercised: List[str]
     boundary_violations: int = 0
+    seam: str = ""
 
     def to_dict(self) -> dict:
         return {
@@ -55,6 +56,7 @@ class HostCapabilityMap:
             "capabilities_reachable": self.capabilities_reachable,
             "capabilities_exercised": self.capabilities_exercised,
             "boundary_violations": self.boundary_violations,
+            "seam": self.seam,
         }
 
 
@@ -102,4 +104,83 @@ class WalbolgeBackend:
 def get_backend(name: str = "walbolge"):
     if name == "walbolge":
         return WalbolgeBackend()
+    if name == "malbolge-engine":
+        return MalbolgeEngineBackend()
     raise ValueError(f"Unknown backend: {name}")
+
+
+MALBOLGE_ENGINE_EXE = os.environ.get(
+    "AVB_MALBOLGE_ENGINE",
+    r"C:\Development\ISyCo Git\Malbolge-Engine\malbolge-ipc.exe")
+
+
+class MalbolgeEngineBackend:
+    """Runs a specimen inside the C Malbolge-Engine VM via its JSONL IPC.
+
+    Boundary map: the *adapter* launches the interpreter binary as a host
+    process (HOST_PROCESS_START present at the harness level), but the C VM
+    exposes no host operation to the specimen, so capabilities_reachable and
+    capabilities_exercised stay empty. This is the seam recorded, not assumed.
+    """
+    name = "malbolge-engine"
+    version = "0.1.0"
+    language = "C"
+    host_map = HostCapabilityMap(
+        backend="malbolge-engine",
+        capabilities_present=["HOST_PROCESS_START"],   # harness spawns the C binary
+        capabilities_reachable=[],
+        capabilities_exercised=[],
+        boundary_violations=0,
+        seam="antivirusbolge.interpreter.MalbolgeEngineBackend -> "
+             "malbolge-ipc.exe (subprocess) -> vm_run",
+    )
+
+    def trace(self, text: str, max_steps: int, max_events: Optional[int],
+              classic: bool = False) -> BackendOutcome:
+        import json
+        import subprocess
+        try:
+            proc = subprocess.Popen(
+                [MALBOLGE_ENGINE_EXE], stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        except Exception as exc:
+            return BackendOutcome(steps=0, halted=False, halt_reason="interpreter_error",
+                                  output="", peak_memory=0, error=f"spawn: {exc}")
+        try:
+            banner = json.loads(proc.stdout.readline())
+            if banner.get("status") != "ready":
+                return BackendOutcome(steps=0, halted=False,
+                                      halt_reason="interpreter_error",
+                                      output="", peak_memory=0,
+                                      error=f"banner: {banner}")
+            request = {"id": 1, "op": "run", "program": text,
+                       "steps": max_steps, "input": ""}
+            proc.stdin.write(json.dumps(request) + "\n")
+            proc.stdin.flush()
+            resp = json.loads(proc.stdout.readline())
+            try:
+                proc.stdin.write(json.dumps({"id": 2, "op": "quit"}) + "\n")
+                proc.stdin.flush()
+            except Exception:
+                pass
+        except Exception as exc:
+            return BackendOutcome(steps=0, halted=False,
+                                  halt_reason="interpreter_error",
+                                  output="", peak_memory=0, error=f"ipc: {exc}")
+        finally:
+            proc.kill()
+
+        status = resp.get("status", "ERROR")
+        steps = resp.get("steps", 0)
+        output = resp.get("output", "") or ""
+        if status == "OK":
+            halt_reason, halted, error = "halt_opcode", True, None
+        elif status == "INVALID":
+            halt_reason, halted, error = "invalid_program", False, None
+        elif status == "TIMEOUT":
+            halt_reason, halted, error = "max_steps", False, None
+        else:
+            halt_reason, halted, error = "interpreter_error", False, status
+        return BackendOutcome(
+            steps=steps, halted=halted, halt_reason=halt_reason,
+            output=output, peak_memory=0, error=error)

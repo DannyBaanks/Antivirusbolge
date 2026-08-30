@@ -25,8 +25,9 @@ specimen.mal
 | `receipt.py` | `ExecutionReceipt` schema. |
 | `analyzer.py` | orchestrates scan; budget enforcement (steps, wall time, output bytes); builds report dict. |
 | `compare.py` | L0..L5 trace-level comparison ladder + OUTPUT_EQUAL_TRACE_DIFFERENT. |
+| `parity.py` | cross-interpreter parity: same specimen on Walbolge (classic) vs Malbolge-Engine (C) -> SEMANTIC_PARITY / OUTPUT_DIVERGENCE / TRACE_DIVERGENCE / CRASH_ONLY_ONE_BACKEND / HOST_EFFECT_ONLY_ONE_BACKEND. |
 | `report.py` | renders .md and .json. |
-| `cli.py` | commands: scan, trace, behavior, compare, verify. |
+| `cli.py` | commands: scan, trace, behavior, compare, parity, interpreter-audit, verify. |
 
 ## Canonical effect IR
 
