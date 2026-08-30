@@ -1,0 +1,15 @@
+{
+  "original": "SECURE COMMUNICATION",
+  "processed": "SECURE COMMUNICATION",
+  "words": 1,
+  "anchors": [
+    "default"
+  ],
+  "opcodes": 465,
+  "stats": {
+    "words": 1,
+    "evaluations": 18130,
+    "duration_s": 0.6378314,
+    "anchors_used": 1
+  }
+}

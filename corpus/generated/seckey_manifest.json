@@ -1,0 +1,15 @@
+{
+  "original": "﻿SECRET KEY\n",
+  "processed": "?SECRET KEY\n",
+  "words": 1,
+  "anchors": [
+    "default"
+  ],
+  "opcodes": 496,
+  "stats": {
+    "words": 1,
+    "evaluations": 21518,
+    "duration_s": 0.4786304,
+    "anchors_used": 1
+  }
+}

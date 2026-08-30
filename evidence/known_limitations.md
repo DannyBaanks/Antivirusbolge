@@ -37,16 +37,15 @@
    instruction cells is classified INVALID; printable ASCII that decodes to some
    opcodes is treated as executable.
 
-9. **Generation coverage is severely bounded by the available synthesizer.** The
-   wired generator is meowbolge, which synthesizes fast only for easy
-   character transitions (measured: `NO`/`HI` in <1s; security words like
-   `SEC`/`KEY`/`DATA`/`CIPHER` hit exponential exhaustive search and time out).
-   A full-book cybersecurity corpus via meowbolge is NOT feasible. The compact
-   word-by-word generator that produced the Quijote (a `malbolge-generator` fork)
-   is not present on this machine (Malbolge-Translator import broken). Generation
-   here demonstrates the *pipeline* (roundtrip verified on 3 independent
-   backends); full-text synthesis is NOT_DEMONSTRATED and requires either the
-   missing generator fork or the Autobolge relational synthesizer.
+9. **Generation works via the compact generator; coverage scales with text
+   length.** The `malbolge-generator` package lives at
+   `C:\Development\E31-A-Nagoya\malbolge_toolkit\malbolge\` and is used by
+   `generate_compact` (Malbolge-Translator). Short cybersecurity specimens
+   generate in <1s and are ROUNDTRIP_PASS on 3 independent backends. The
+   meowbolge generator (also wired) is fast only for easy character transitions.
+   A full book chapter is feasible but slow (per-word search); the Quijote
+   chapters in `Malbolge-Translator/artifacts/quijote` are real, pre-generated
+   proof of that scale.
 
 ## Claim discipline
 

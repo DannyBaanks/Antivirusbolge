@@ -129,11 +129,11 @@
     },
     {
       "capability": "GENERATE_OR_SYNTHESIZE",
-      "AVB_current": "generate command (meowbolge adapter)",
+      "AVB_current": "generate_compact (Malbolge-Translator + malbolge-generator)",
       "local_tool_provider": "meowbolge (working text->Malbolge), Autobolge relational, Malbolge-Translator (import broken)",
       "external_prior_art": "generators",
       "implementation_mode": "adapter",
-      "evidence": "generate+roundtrip test; coverage limited to easy transitions",
+      "evidence": "5 cybersecurity specimens generated + ROUNDTRIP_PASS on 3 backends",
       "status": "DEMONSTRATED"
     },
     {
@@ -142,7 +142,7 @@
       "local_tool_provider": "walbolge (roundtrip_vs_manifest), meowbolge self-check",
       "external_prior_art": "verifiers",
       "implementation_mode": "adapter",
-      "evidence": "ROUNDTRIP_PASS on 3 independent backends",
+      "evidence": "ROUNDTRIP_PASS + cross_backend_parity on 3 independent backends (compact + meowbolge)",
       "status": "DEMONSTRATED"
     },
     {

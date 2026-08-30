@@ -1,0 +1,15 @@
+{
+  "original": "FREQUENCY TABLE",
+  "processed": "FREQUENCY TABLE",
+  "words": 1,
+  "anchors": [
+    "default"
+  ],
+  "opcodes": 654,
+  "stats": {
+    "words": 1,
+    "evaluations": 30900,
+    "duration_s": 1.1526212,
+    "anchors_used": 1
+  }
+}

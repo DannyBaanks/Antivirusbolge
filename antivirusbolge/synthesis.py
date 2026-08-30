@@ -33,6 +33,52 @@ def generate(target_text: str, out_path: str = None, timeout_s: int = 120) -> st
     return prog
 
 
+def generate_compact(text: str, out_dir: str, base_name: str = "specimen",
+                     translator_path: str = None,
+                     generator_path: str = None) -> str:
+    """Generate with the compact word-by-word generator (Malbolge-Translator).
+
+    Requires the malbolge-generator package. generator_path points at the
+    toolkit dir that contains a `malbolge` package with a `generator` module.
+    Returns the path to the generated .mal.
+    """
+    import os
+    import sys
+    gen = generator_path or os.environ.get(
+        "AVB_MALBOLGE_GENERATOR",
+        r"C:\Development\E31-A-Nagoya\malbolge_toolkit")
+    if gen not in sys.path:
+        sys.path.insert(0, gen)
+    tr = translator_path or os.environ.get(
+        "AVB_TRANSLATOR",
+        r"C:\Development\ISyCo Git\Malbolge-Translator")
+    if tr not in sys.path:
+        sys.path.insert(0, tr)
+
+    from pathlib import Path
+    import tempfile
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    tmp = Path(tempfile.mkstemp(suffix=".txt", prefix="avb_in_")[1])
+    try:
+        tmp.write_text(text, encoding="utf-8")
+        from malbolge_translator.cli import main
+        rc = main(["--file", str(tmp), "--output-dir", str(out),
+                   "--base-name", base_name])
+        if rc != 0:
+            raise RuntimeError(f"translator exit {rc}")
+    finally:
+        import time
+        for _ in range(5):
+            try:
+                tmp.unlink(missing_ok=True)
+                break
+            except OSError:
+                time.sleep(0.2)
+    mal = out / f"{base_name}_full.mal"
+    return str(mal)
+
+
 def roundtrip(specimen_path: str, expected_text: str,
               max_steps: int = 5_000_000) -> dict:
     """Verify a specimen reproduces expected_text on independent interpreters."""
@@ -53,11 +99,17 @@ def roundtrip(specimen_path: str, expected_text: str,
             results[b] = {"status": "ERROR", "error": str(exc), "match": False}
 
     matched = [b for b, r in results.items() if r.get("match")]
+    ok_outputs = {r["output"] for r in results.values()
+                  if r.get("status") == "OK"}
+    cross_backend_parity = len(ok_outputs) == 1
+    observed = next(iter(ok_outputs), "") if len(ok_outputs) == 1 else None
     return {
         "specimen": specimen_path,
         "expected": expected_text,
         "results": results,
         "backends_matching": matched,
+        "cross_backend_parity": cross_backend_parity,
+        "observed_output": observed,
         "verdict": "ROUNDTRIP_PASS" if len(matched) >= 2 else "ROUNDTRIP_FAIL",
     }
 

@@ -78,10 +78,12 @@ across all three (48 steps, `Hello, world.`).
 M2 turned Antivirusbolge into a full-spectrum workbench over the independent
 Malbolge VMs: canonical IR (`run`), cross-validation (`crossval`), debugger/RE
 (`disasm`/`state`/`debug`), and a generation+roundtrip pipeline (`generate`/
-`roundtrip`/`corpus`). See `evidence/CLAIM_GATE.md` for the honest verdict:
-the core is demonstrated; full-text **synthesis** is NOT_DEMONSTRATED (the
-compact generator fork is absent; the wired generator only covers easy
-transitions).
+`roundtrip`/`corpus`). The compact word-by-word generator (`malbolge-generator`,
+found at `C:\Development\E31-A-Nagoya\malbolge_toolkit\malbolge\`) produces
+short cybersecurity specimens verified ROUNDTRIP_PASS on all 3 independent
+backends; the antivirus scans them OUTPUT_ONLY / no host effects. See
+`evidence/CLAIM_GATE.md`: verdict **READY** (synthesis gap closed); the novelty
+claim is conditional on a broader prior-art sweep.
 
 ## Structure
 

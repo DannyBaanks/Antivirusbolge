@@ -1,0 +1,15 @@
+{
+  "original": "CRYPTOGRAPHY",
+  "processed": "CRYPTOGRAPHY",
+  "words": 1,
+  "anchors": [
+    "default"
+  ],
+  "opcodes": 597,
+  "stats": {
+    "words": 1,
+    "evaluations": 27971,
+    "duration_s": 0.7059605,
+    "anchors_used": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "original": "CIPHER TEXT",
+  "processed": "CIPHER TEXT",
+  "words": 1,
+  "anchors": [
+    "default"
+  ],
+  "opcodes": 457,
+  "stats": {
+    "words": 1,
+    "evaluations": 19283,
+    "duration_s": 0.6506823,
+    "anchors_used": 1
+  }
+}

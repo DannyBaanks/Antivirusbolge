@@ -255,3 +255,39 @@ def test_generate_and_roundtrip_on_independent_backends():
         assert set(rt["backends_matching"]) >= {"walbolge", "oracle"}
     finally:
         os.unlink(path)
+
+
+def _compact_generator_available() -> bool:
+    import sys
+    p = r"C:\Development\E31-A-Nagoya\malbolge_toolkit"
+    if p not in sys.path:
+        sys.path.insert(0, p)
+    try:
+        import malbolge.generator  # noqa: F401
+        return True
+    except Exception:
+        return False
+
+
+@pytest.mark.skipif(not _compact_generator_available(),
+                    reason="malbolge-generator (compact) not present")
+def test_compact_generation_roundtrips_on_three_backends(tmp_path):
+    from antivirusbolge.synthesis import generate_compact, roundtrip
+    mal = generate_compact("CIPHER", str(tmp_path), base_name="t_cipher")
+    rt = roundtrip(mal, "CIPHER", max_steps=1_000_000)
+    assert rt["verdict"] == "ROUNDTRIP_PASS"
+    assert rt["cross_backend_parity"] is True
+    assert set(rt["backends_matching"]) >= {"walbolge", "malbolge-engine", "oracle"}
+
+
+def test_cybersecurity_corpus_scans_benign():
+    from antivirusbolge.analyzer import scan
+    from antivirusbolge.classify import CLS_OUTPUT_ONLY
+    p = Path(__file__).resolve().parent.parent / "corpus" / "cybersec"
+    files = sorted(p.glob("cs_*_full.mal"))
+    if not files:
+        pytest.skip("cybersecurity corpus not generated")
+    for mal in files:
+        r = scan(str(mal), max_steps=5_000_000)
+        assert r["verdict"]["security_class"] == CLS_OUTPUT_ONLY
+        assert r["host_map"]["capabilities_exercised"] == []
