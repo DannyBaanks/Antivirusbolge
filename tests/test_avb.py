@@ -4,6 +4,7 @@ Each test asserts an observable classification, keeping raw output available.
 """
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import pytest
@@ -102,7 +103,10 @@ def test_source_hash_differs_from_behavior_signature():
 
 # ---- M1: cross-interpreter parity + boundary map --------------------------
 
-MALBOLGE_ENGINE_EXE = r"C:\Development\ISyCo Git\Malbolge-Engine\malbolge-ipc.exe"
+MALBOLGE_ENGINE_EXE = os.environ.get(
+    "AVB_MALBOLGE_ENGINE",
+    r"C:\Development\ISyCo Git\Malbolge-Engine\malbolge-ipc.exe",
+)
 
 
 def _engine_present() -> bool:
