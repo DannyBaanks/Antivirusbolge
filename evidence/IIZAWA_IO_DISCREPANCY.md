@@ -59,7 +59,7 @@ oracle smoke tests (T5/T6) instead.
 ## REPRO_COMMAND
 
 ```
-cd C:\Development\E31-A-Nagoya
+cd <E31-A-Nagoya repo>
 python e31/harness/smoke_test_oracle.py      # 29/29 PASS; T5/T6 pin < outputs, / inputs
 # discrepancy text reproduced by two PDF extractions (see SOURCE_LOCATION)
 ```

@@ -38,8 +38,8 @@
    opcodes is treated as executable.
 
 9. **Generation works via the compact generator; coverage scales with text
-   length.** The `malbolge-generator` package lives at
-   `C:\Development\E31-A-Nagoya\malbolge_toolkit\malbolge\` and is used by
+   length.** The `malbolge-generator` package lives in the malbolge_toolkit
+   project (as its `malbolge` package) and is used by
    `generate_compact` (Malbolge-Translator). Short cybersecurity specimens
    generate in <1s and are ROUNDTRIP_PASS on 3 independent backends. The
    meowbolge generator (also wired) is fast only for easy character transitions.

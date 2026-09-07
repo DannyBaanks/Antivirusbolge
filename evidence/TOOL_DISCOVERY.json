@@ -5,7 +5,7 @@
   "tools": [
     {
       "tool_id": "walbolge",
-      "path": "C:\\Development\\ISyCo Git\\Walbolge",
+      "path": "<repo:Walbolge>",
       "version": "0.1.0",
       "language": "Python",
       "entrypoint": "py -m walbolge <prog.mal|.op> [--json OUT]",
@@ -21,7 +21,7 @@
     },
     {
       "tool_id": "malbolge-engine",
-      "path": "C:\\Development\\ISyCo Git\\Malbolge-Engine",
+      "path": "<repo:Malbolge-Engine>",
       "version": "git e7faeb1",
       "language": "C",
       "entrypoint": "malbolge-ipc.exe (JSONL stdin/stdout)",
@@ -37,7 +37,7 @@
     },
     {
       "tool_id": "malbolge-oracle",
-      "path": "C:\\Development\\ISyCo Git\\malbolge-oracle",
+      "path": "<repo:malbolge-oracle>",
       "version": "git 6cf2423",
       "language": "Python",
       "entrypoint": "from oracle import Oracle; Oracle().load_ascii(t).run(steps)",
@@ -53,7 +53,7 @@
     },
     {
       "tool_id": "meowbolge",
-      "path": "C:\\Development\\ISyCo Git\\meowbolge",
+      "path": "<repo:meowbolge>",
       "version": "git cc08572",
       "language": "Python",
       "entrypoint": "py meowbolge.py \"<text>\"  or  meowbolge.generar(text, ...)",
@@ -66,11 +66,11 @@
       "safe_to_invoke": true,
       "works_now": true,
       "import_status": "import meowbolge OK (generation per-char search can be slow)",
-      "notes": "Reuses canonical interpreter at C:\\Development\\ISyCo\\workspace\\assembly\\malbolge\\malbolge_interpreter.py for verification."
+      "notes": "Reuses canonical interpreter at <ISyCo>/workspace/assembly/malbolge/malbolge_interpreter.py for verification."
     },
     {
       "tool_id": "autobolge",
-      "path": "C:\\Development\\ISyCo Git\\Autobolge",
+      "path": "<repo:Autobolge>",
       "version": "git b597580",
       "language": "Python + Zig",
       "entrypoint": "zig/bolge.exe <in.bin> <out.bin>  (BOLG1->BOLG2 container); relational/* synthesizer",
@@ -86,7 +86,7 @@
     },
     {
       "tool_id": "opera-solver",
-      "path": "C:\\Development\\ISyCo Git\\malbolge-opera-solver",
+      "path": "<repo:malbolge-opera-solver>",
       "version": "0.1.0 (git 0593898)",
       "language": "Python",
       "entrypoint": "opera.evaluator.UnifiedEvaluator().evaluate_all(path)",
@@ -102,7 +102,7 @@
     },
     {
       "tool_id": "malbolge-translator",
-      "path": "C:\\Development\\ISyCo Git\\Malbolge-Translator",
+      "path": "<repo:Malbolge-Translator>",
       "version": "1.0.0 (git 66deab7)",
       "language": "Python",
       "entrypoint": "malbolge-translate (import broken on this host)",
@@ -118,7 +118,7 @@
     },
     {
       "tool_id": "malbolge-differential",
-      "path": "C:\\Development\\ISyCo Git\\malbolge-differential",
+      "path": "<repo:malbolge-differential>",
       "version": "git 9c14f3c",
       "language": "Python",
       "entrypoint": "py -m mdiff.diff <prog.mb> [--backends ...] [--json]",
@@ -134,7 +134,7 @@
     },
     {
       "tool_id": "malbolge-lisp-forensics",
-      "path": "C:\\Development\\ISyCo Git\\malbolge-lisp-forensics",
+      "path": "<repo:malbolge-lisp-forensics>",
       "version": "git 20f843b",
       "language": "Zig + Python",
       "entrypoint": "src/bolge19/main.zig (native 3^19 VM); scripts/run_validation.py",
@@ -150,7 +150,7 @@
     },
     {
       "tool_id": "meow-engine",
-      "path": "C:\\Development\\ISyCo Git\\MEOW-ENGINE",
+      "path": "<repo:MEOW-ENGINE>",
       "language": "Python",
       "capabilities": [],
       "works_now": false,
@@ -158,7 +158,7 @@
     },
     {
       "tool_id": "interpret-esolangs-online",
-      "path": "C:\\Development\\ISyCo Git\\Interpret-Esolangs-Online",
+      "path": "<repo:Interpret-Esolangs-Online>",
       "language": "JavaScript",
       "capabilities": [],
       "works_now": false,

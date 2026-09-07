@@ -22,7 +22,15 @@ INVALID = CORPUS / "malformed" / "invalid_chars.mal"
 TRUNCATED = CORPUS / "malformed" / "truncated.mal"
 PROBE = CORPUS / "interpreter_boundary" / "probe_high_activity.mal"
 
+requires_walbolge = pytest.mark.skipif(
+    not os.environ.get("AVB_WALBOLGE_PATH"),
+    reason="AVB_WALBOLGE_PATH not set (Walbolge repo required)")
+requires_oracle = pytest.mark.skipif(
+    not os.environ.get("AVB_ORACLE_PATH"),
+    reason="AVB_ORACLE_PATH not set (malbolge-oracle repo required)")
 
+
+@requires_walbolge
 def test_benign_output_specimen_output_only():
     report = scan(str(QUIJOTE), max_steps=5_000_000)
     assert report["verdict"]["security_class"] == CLS_OUTPUT_ONLY
@@ -32,6 +40,7 @@ def test_benign_output_specimen_output_only():
     assert report["host_map"]["capabilities_exercised"] == []
 
 
+@requires_walbolge
 def test_valid_halting_classic_halt_detected():
     report = scan(str(HELLO), classic=True, max_steps=1_000_000)
     assert report["outcome"]["halted"] is True
@@ -41,6 +50,7 @@ def test_valid_halting_classic_halt_detected():
     assert report["verdict"]["security_class"] == CLS_OUTPUT_ONLY
 
 
+@requires_walbolge
 def test_long_running_specimen_budget_exceeded():
     # runaway.mal is a long printable program; we cut it at 10 steps so the
     # execution is unobserved to completion. INV-008: budget exceeded != safe.
@@ -51,6 +61,7 @@ def test_long_running_specimen_budget_exceeded():
     assert report["verdict"]["security_class"] == CLS_NONTERMINATING
 
 
+@requires_walbolge
 def test_malformed_specimen_invalid_program():
     report = scan(str(INVALID))
     assert report["verdict"]["security_class"] == CLS_INVALID_PROGRAM
@@ -69,6 +80,7 @@ def test_interpreter_crash_classified_not_as_specimen_compromise():
     assert verdict["origin"] == "INTERPRETER_BEHAVIOR"
 
 
+@requires_walbolge
 def test_host_capability_path_classified():
     # A high-activity specimen on the Walbolge backend: capability path is
     # structurally empty; no host effect can be attributed.
@@ -81,6 +93,7 @@ def test_host_capability_path_classified():
         assert inv["pass"], f"{inv['invariant']} failed: {inv['note']}"
 
 
+@requires_walbolge
 def test_same_output_different_trace_pair():
     # truncated and invalid_chars both produce zero output but trace differently.
     result = compare(str(TRUNCATED), str(INVALID))
@@ -89,6 +102,7 @@ def test_same_output_different_trace_pair():
     assert result["ladder"]["L4_trace"] is False
 
 
+@requires_walbolge
 def test_source_hash_differs_from_behavior_signature():
     a = scan(str(HELLO), classic=True)
     sig_a = behavior_signature(a)
@@ -103,16 +117,14 @@ def test_source_hash_differs_from_behavior_signature():
 
 # ---- M1: cross-interpreter parity + boundary map --------------------------
 
-MALBOLGE_ENGINE_EXE = os.environ.get(
-    "AVB_MALBOLGE_ENGINE",
-    r"C:\Development\ISyCo Git\Malbolge-Engine\malbolge-ipc.exe",
-)
+MALBOLGE_ENGINE_EXE = os.environ.get("AVB_MALBOLGE_ENGINE")
 
 
 def _engine_present() -> bool:
-    return Path(MALBOLGE_ENGINE_EXE).exists()
+    return bool(MALBOLGE_ENGINE_EXE) and Path(MALBOLGE_ENGINE_EXE).exists()
 
 
+@requires_walbolge
 @pytest.mark.skipif(not _engine_present(), reason="Malbolge-Engine binary not present")
 def test_cross_interpreter_semantic_parity():
     from antivirusbolge.parity import parity
@@ -156,6 +168,7 @@ def test_defensive_rce_present_not_reached_for_engine():
 
 # ---- M2-C: canonical IR + cross-validation ---------------------------------
 
+@requires_oracle
 def test_run_canonical_ir_oracle():
     from antivirusbolge.workbench import run
     r = run(str(HELLO), backend_name="oracle", max_steps=1_000_000)
@@ -167,6 +180,8 @@ def test_run_canonical_ir_oracle():
     assert isinstance(r.specimen_sha256, str) and len(r.specimen_sha256) == 64
 
 
+@requires_walbolge
+@requires_oracle
 def test_crossval_semantic_parity_across_three_backends():
     from antivirusbolge.workbench import crossval
     r = crossval(str(HELLO), max_steps=1_000_000)
@@ -177,6 +192,8 @@ def test_crossval_semantic_parity_across_three_backends():
     assert len(outputs) == 1
 
 
+@requires_walbolge
+@requires_oracle
 def test_crossval_parity_includes_autobolge():
     from antivirusbolge.interpreter import available_backends
     from antivirusbolge.workbench import crossval
@@ -189,6 +206,8 @@ def test_crossval_parity_includes_autobolge():
     assert r["results"]["autobolge"]["output_hash"] == r["results"]["walbolge"]["output_hash"]
 
 
+@requires_walbolge
+@requires_oracle
 def test_bolge19_variant_isolated_not_parity_peer():
     from antivirusbolge.interpreter import available_backends, get_backend
     from antivirusbolge.workbench import crossval
@@ -204,6 +223,8 @@ def test_bolge19_variant_isolated_not_parity_peer():
     assert "bolge19" in r["other_variant_backends"]
 
 
+@requires_walbolge
+@requires_oracle
 def test_crossval_malformed_reveals_backend_divergence():
     from antivirusbolge.workbench import crossval
     # `)')*21 is not a valid Malbolge program; independent backends interpret it
@@ -216,6 +237,11 @@ def test_crossval_malformed_reveals_backend_divergence():
 
 
 def test_available_backends_reports_present_backends():
+    if not (os.environ.get("AVB_WALBOLGE_PATH")
+            and os.environ.get("AVB_ORACLE_PATH")
+            and os.environ.get("AVB_MALBOLGE_ENGINE")):
+        pytest.skip("backend env vars not set (AVB_WALBOLGE_PATH, "
+                    "AVB_ORACLE_PATH, AVB_MALBOLGE_ENGINE)")
     from antivirusbolge.interpreter import available_backends
     a = available_backends()
     assert a["walbolge"] is True
@@ -225,6 +251,7 @@ def test_available_backends_reports_present_backends():
 
 # ---- M2-D: debugger / RE ---------------------------------------------------
 
+@requires_walbolge
 def test_disassemble_decodes_each_cell():
     from antivirusbolge.debug import disassemble
     ins = disassemble(str(QUIJOTE))
@@ -234,6 +261,7 @@ def test_disassemble_decodes_each_cell():
     assert all("pos" in i and "char" in i and "opcode" in i for i in ins)
 
 
+@requires_walbolge
 def test_debug_breakpoint_on_pc():
     from antivirusbolge.debug import run_debug
     r = run_debug(str(QUIJOTE), breakpoints_pc=[156], max_steps=1_000_000)
@@ -242,6 +270,7 @@ def test_debug_breakpoint_on_pc():
     assert r["trigger"]["c"] == 156
 
 
+@requires_walbolge
 def test_state_at_rewind():
     from antivirusbolge.debug import state_at
     from antivirusbolge.interpreter import ensure_walbolge
@@ -262,7 +291,10 @@ def test_state_at_rewind():
 def _generate_or_skip(text):
     try:
         import os, sys
-        p = os.environ.get("AVB_MEOWBOLGE_PATH", r"C:\Development\ISyCo Git\meowbolge")
+        p = os.environ.get("AVB_MEOWBOLGE_PATH")
+        if not p:
+            pytest.skip("meowbolge generator unavailable "
+                        "(AVB_MEOWBOLGE_PATH not set)")
         if p not in sys.path:
             sys.path.insert(0, p)
         import meowbolge
@@ -271,6 +303,8 @@ def _generate_or_skip(text):
         pytest.skip("meowbolge generator unavailable")
 
 
+@requires_walbolge
+@requires_oracle
 def test_generate_and_roundtrip_on_independent_backends():
     from antivirusbolge.synthesis import roundtrip
     import tempfile, os
@@ -290,7 +324,9 @@ def test_generate_and_roundtrip_on_independent_backends():
 
 def _compact_generator_available() -> bool:
     import sys
-    p = r"C:\Development\E31-A-Nagoya\malbolge_toolkit"
+    p = os.environ.get("AVB_MALBOLGE_GENERATOR")
+    if not p:
+        return False
     if p not in sys.path:
         sys.path.insert(0, p)
     try:
@@ -300,6 +336,9 @@ def _compact_generator_available() -> bool:
         return False
 
 
+@requires_walbolge
+@requires_oracle
+@pytest.mark.skipif(not _engine_present(), reason="Malbolge-Engine binary not present")
 @pytest.mark.skipif(not _compact_generator_available(),
                     reason="malbolge-generator (compact) not present")
 def test_compact_generation_roundtrips_on_three_backends(tmp_path):
@@ -311,6 +350,7 @@ def test_compact_generation_roundtrips_on_three_backends(tmp_path):
     assert set(rt["backends_matching"]) >= {"walbolge", "malbolge-engine", "oracle"}
 
 
+@requires_walbolge
 def test_cybersecurity_corpus_scans_benign():
     from antivirusbolge.analyzer import scan
     from antivirusbolge.classify import CLS_OUTPUT_ONLY

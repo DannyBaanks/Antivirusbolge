@@ -280,9 +280,10 @@ no es inocencia.
   viste dentro de un presupuesto.
 - **El corpus del Quijote viene de `Malbolge-Translator`.** Si lo regeneras, el
   SHA-256 de `specimen_manifest.json` deja de cuadrar; vuelve a generarlo.
-- **`parity` y el backend C necesitan el binario.** `malbolge-ipc.exe` debe
-  existir (por defecto en `C:\Development\ISyCo Git\Malbolge-Engine\`). Si no
-  está, ese test se salta; ajusta `AVB_MALBOLGE_ENGINE` para apuntar a otro.
+- **`parity` y el backend C necesitan el binario.** `malbolge-ipc.exe` (del
+  repo Malbolge-Engine) debe existir y se localiza con la variable de entorno
+  `AVB_MALBOLGE_ENGINE`. Si no está definida o el binario no existe, ese test
+  se salta.
 - **`parity` usa `classic=True` para Walbolge.** Es lo correcto para comparar
   contra el intérprete clásico C; un programa del Translator (toolkit) no es
   comparable 1:1 contra Malbolge-Engine.

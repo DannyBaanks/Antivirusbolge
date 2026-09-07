@@ -22,7 +22,11 @@ def generate(target_text: str, out_path: str = None, timeout_s: int = 120) -> st
     """Generate a classic Malbolge specimen that outputs target_text."""
     import os
     import sys
-    meow = os.environ.get("AVB_MEOWBOLGE_PATH", r"C:\Development\ISyCo Git\meowbolge")
+    meow = os.environ.get("AVB_MEOWBOLGE_PATH")
+    if not meow:
+        raise RuntimeError(
+            "meowbolge generator not configured: set the AVB_MEOWBOLGE_PATH "
+            "environment variable to the meowbolge repository directory")
     if meow not in sys.path:
         sys.path.insert(0, meow)
     import meowbolge
@@ -44,14 +48,19 @@ def generate_compact(text: str, out_dir: str, base_name: str = "specimen",
     """
     import os
     import sys
-    gen = generator_path or os.environ.get(
-        "AVB_MALBOLGE_GENERATOR",
-        r"C:\Development\E31-A-Nagoya\malbolge_toolkit")
+    gen = generator_path or os.environ.get("AVB_MALBOLGE_GENERATOR")
+    if not gen:
+        raise RuntimeError(
+            "malbolge-generator not configured: set the AVB_MALBOLGE_GENERATOR "
+            "environment variable to the malbolge_toolkit directory (it must "
+            "contain a 'malbolge' package with a 'generator' module)")
     if gen not in sys.path:
         sys.path.insert(0, gen)
-    tr = translator_path or os.environ.get(
-        "AVB_TRANSLATOR",
-        r"C:\Development\ISyCo Git\Malbolge-Translator")
+    tr = translator_path or os.environ.get("AVB_TRANSLATOR")
+    if not tr:
+        raise RuntimeError(
+            "Malbolge-Translator not configured: set the AVB_TRANSLATOR "
+            "environment variable to the Malbolge-Translator repository directory")
     if tr not in sys.path:
         sys.path.insert(0, tr)
 

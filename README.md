@@ -96,7 +96,7 @@ M2 convirtio a Antivirusbolge en un workbench de espectro completo sobre las VMs
 independientes de Malbolge: IR canonico (`run`), cross-validation (`crossval`),
 debugger/RE (`disasm`/`state`/`debug`), y un pipeline de generacion+roundtrip (`generate`/
 `roundtrip`/`corpus`). El generador compacto palabra por palabra (`malbolge-generator`,
-encontrado en `C:\Development\E31-A-Nagoya\malbolge_toolkit\malbolge\`) produce
+paquete `malbolge` del proyecto malbolge_toolkit) produce
 especimenes cortos de ciberseguridad verificados ROUNDTRIP_PASS en los 3 backends
 independientes; el antivirus los escanea como OUTPUT_ONLY / sin efectos en el host. Ver
 `evidence/CLAIM_GATE.md`: veredicto **READY** (gap de sintesis cerrado); el claim de

@@ -14,14 +14,19 @@ from __future__ import annotations
 import os
 import sys
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import List, Optional
 
 from .effects import canonical_effects_from_events, effects_to_signature
 
-WALBOLGE_PATH = os.environ.get("AVB_WALBOLGE_PATH", r"C:\Development\ISyCo Git\Walbolge")
+WALBOLGE_PATH = os.environ.get("AVB_WALBOLGE_PATH")
 
 
 def ensure_walbolge() -> None:
+    if not WALBOLGE_PATH:
+        raise RuntimeError(
+            "Walbolge path not configured: set the AVB_WALBOLGE_PATH "
+            "environment variable to the Walbolge repository directory")
     if WALBOLGE_PATH not in sys.path:
         sys.path.insert(0, WALBOLGE_PATH)
 
@@ -120,7 +125,7 @@ def get_backend(name: str = "walbolge"):
 
 BOLGE19_EXE = os.environ.get(
     "AVB_BOLGE19_EXE",
-    r"C:\Development\ISyCo Git\Antivirusbolge\tools\bolge19.exe")
+    str(Path(__file__).resolve().parent.parent / "tools" / "bolge19.exe"))
 
 
 class Bolge19Backend:
@@ -182,9 +187,7 @@ class Bolge19Backend:
                               peak_memory=0, variant=self.variant)
 
 
-AUTOBOLGE_EXE = os.environ.get(
-    "AVB_AUTOBOLGE_EXE",
-    r"C:\Development\ISyCo Git\Autobolge\zig\bolge.exe")
+AUTOBOLGE_EXE = os.environ.get("AVB_AUTOBOLGE_EXE")
 
 
 class AutobolgeBackend:
@@ -210,6 +213,12 @@ class AutobolgeBackend:
         import struct
         import subprocess
         import tempfile
+        if not AUTOBOLGE_EXE:
+            return BackendOutcome(steps=0, halted=False,
+                                  halt_reason="interpreter_error",
+                                  output="", peak_memory=0,
+                                  error="autobolge: set AVB_AUTOBOLGE_EXE "
+                                        "to the Autobolge zig/bolge.exe path")
         try:
             cells = [ord(c) for c in text.strip()]
             blob = b"BOLG1" + struct.pack("<Q", 1)
@@ -261,23 +270,24 @@ def available_backends() -> dict:
     """Report which backends are invocable right now (presence-based)."""
     import os
     return {
-        "walbolge": True,
-        "malbolge-engine": os.path.exists(MALBOLGE_ENGINE_EXE),
-        "oracle": os.path.isdir(ORACLE_PATH),
-        "autobolge": os.path.exists(AUTOBOLGE_EXE),
+        "walbolge": bool(WALBOLGE_PATH),
+        "malbolge-engine": bool(MALBOLGE_ENGINE_EXE) and os.path.exists(MALBOLGE_ENGINE_EXE),
+        "oracle": bool(ORACLE_PATH) and os.path.isdir(ORACLE_PATH),
+        "autobolge": bool(AUTOBOLGE_EXE) and os.path.exists(AUTOBOLGE_EXE),
         "bolge19": os.path.exists(BOLGE19_EXE),
     }
 
 
-MALBOLGE_ENGINE_EXE = os.environ.get(
-    "AVB_MALBOLGE_ENGINE",
-    r"C:\Development\ISyCo Git\Malbolge-Engine\malbolge-ipc.exe")
+MALBOLGE_ENGINE_EXE = os.environ.get("AVB_MALBOLGE_ENGINE")
 
-ORACLE_PATH = os.environ.get("AVB_ORACLE_PATH",
-                             r"C:\Development\ISyCo Git\malbolge-oracle")
+ORACLE_PATH = os.environ.get("AVB_ORACLE_PATH")
 
 
 def ensure_oracle() -> None:
+    if not ORACLE_PATH:
+        raise RuntimeError(
+            "malbolge-oracle path not configured: set the AVB_ORACLE_PATH "
+            "environment variable to the malbolge-oracle repository directory")
     if ORACLE_PATH not in sys.path:
         sys.path.insert(0, ORACLE_PATH)
 
@@ -346,6 +356,12 @@ class MalbolgeEngineBackend:
               classic: bool = False) -> BackendOutcome:
         import json
         import subprocess
+        if not MALBOLGE_ENGINE_EXE:
+            return BackendOutcome(steps=0, halted=False,
+                                  halt_reason="interpreter_error",
+                                  output="", peak_memory=0,
+                                  error="malbolge-engine: set AVB_MALBOLGE_ENGINE "
+                                        "to the malbolge-ipc.exe path")
         try:
             proc = subprocess.Popen(
                 [MALBOLGE_ENGINE_EXE], stdin=subprocess.PIPE,
