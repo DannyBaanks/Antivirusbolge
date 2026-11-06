@@ -1,8 +1,14 @@
-# ANTIVIRUSBOLGE
+# Antivirusbolge v2.0 — Analizador de Seguridad Conductual Defensivo para Malbolge
 
-Analizador de seguridad conductual defensivo para Malbolge. Dado un especimen
-opaco de Malbolge, reduce la ejecucion a efectos VM canonicos y produce un veredicto
-con evidencia. Nunca construye payloads.
+[![Version](https://img.shields.io/badge/version-2.0-blue.svg)](https://github.com/DannyBaanks/Antivirusbolge)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://python.org)
+[![Tests](https://img.shields.io/badge/tests-PASS-brightgreen.svg)]()
+
+Analizador de seguridad conductual defensivo para Malbolge. Dado un espécimen
+opaco de Malbolge, reduce la ejecución a efectos VM canónicos y produce un veredicto
+con evidencia criptográfica demostrable. Nunca construye payloads.
+
+Parte de la **Suite de Herramientas y Seguridad v2.0** del ecosistema Malbolge de ISyCo.
 
 El objetivo no es "Malbolge se ve aterrador". El objetivo es: **podemos explicar exactamente
 que hizo este especimen, que permitio su interprete, y que cruzo hacia el host.**
